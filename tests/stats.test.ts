@@ -1,20 +1,38 @@
 import { mean, stddev, variance } from "binning-api/stats.js";
-import { expect, test } from "vitest";
+import { describe, expect, it } from "vitest";
 
-test("mean", () => {
-  expect(mean([])).toBe(0);
-  expect(mean([1])).toBeCloseTo(1);
-  expect(mean([1, 3])).toBeCloseTo(2);
+describe("mean", () => {
+  it("empty", () => {
+    expect(mean([])).toBe(0);
+  });
+  it("one element", () => {
+    expect(mean([1])).toBeCloseTo(1);
+  });
+  it("others", () => {
+    expect(mean([1, 3])).toBeCloseTo(2);
+  });
 });
 
-test("variance", () => {
-  expect(variance([])).toBe(0);
-  expect(variance([1])).toBe(0);
-  expect(variance([1, 3])).toBeCloseTo(2);
+describe("variance", () => {
+  it("empty", () => {
+    expect(variance([])).toBe(0);
+  });
+  it("one element", () => {
+    expect(variance([1])).toBe(0);
+  });
+  it("others", () => {
+    expect(variance([1, 3])).toBeCloseTo(2);
+  });
 });
 
-test("stddev", () => {
-  expect(stddev([])).toBe(0);
-  expect(stddev([1])).toBe(0);
-  expect(stddev([1, 3])).toBeCloseTo(Math.sqrt(2));
+describe("stddev", () => {
+  it("empty", () => {
+    expect(stddev([])).toBe(0);
+  });
+  it("one element", () => {
+    expect(stddev([1])).toBe(0);
+  });
+  it("others", () => {
+    expect(stddev([1, 3])).toBeCloseTo(Math.sqrt(2));
+  });
 });
