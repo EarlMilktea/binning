@@ -2,5 +2,9 @@
   "name": "binning-api",
   "type": "module",
   "version": "0.1.0",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@tsconfig/node22": "^22.0.2",
+    "typescript": "^5.8.3"
+  }
 }
