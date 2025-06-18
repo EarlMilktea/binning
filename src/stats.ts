@@ -6,7 +6,6 @@
 /**
  * Simple arithmetic mean.
  * Returns 0 if empty.
- *
  * @param arr - Array of numbers.
  */
 export function mean(arr: number[]): number {
@@ -20,7 +19,6 @@ export function mean(arr: number[]): number {
 /**
  * Unbiased sample standard deviation.
  * Returns 0 for length-zero or one arrays.
- *
  * @param arr - Array of numbers.
  */
 export function variance(arr: number[]): number {
@@ -35,7 +33,6 @@ export function variance(arr: number[]): number {
 
 /**
  * Square root of {@link variance}.
- *
  * @param arr - Array of numbers.
  */
 export function stddev(arr: number[]): number {
