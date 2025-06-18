@@ -3,9 +3,18 @@
   "type": "module",
   "version": "0.1.0",
   "license": "MIT",
+  "exports": {
+    ".": "./src/index.js",
+    "./stats.js": "./src/stats.js"
+  },
   "devDependencies": {
     "@tsconfig/node22": "^22.0.2",
     "typescript": "^5.8.3",
+    "vite": "^6.3.5",
     "vitest": "^3.2.4"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest"
   }
 }
