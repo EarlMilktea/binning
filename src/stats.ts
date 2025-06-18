@@ -3,10 +3,6 @@
  * @module stats
  */
 
-function addReducer(lhs: number, rhs: number): number {
-  return lhs + rhs;
-}
-
 /**
  * Simple arithmetic mean.
  *
@@ -17,7 +13,7 @@ export function mean(arr: number[]): number {
   if (n === 0) {
     return 0;
   }
-  return arr.reduce(addReducer) / n;
+  return arr.reduce((cum, x) => cum + x) / n;
 }
 
 /**
@@ -32,7 +28,7 @@ export function variance(arr: number[]): number {
     return 0;
   }
   const m = mean(arr);
-  return arr.map((a) => (a - m) ** 2).reduce(addReducer) / (n - 1);
+  return arr.reduce((cum, x) => cum + (x - m) ** 2) / (n - 1);
 }
 
 /**
