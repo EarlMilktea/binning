@@ -14,7 +14,7 @@ export function mean(arr: number[]): number {
   if (n === 0) {
     return 0;
   }
-  return arr.reduce((cum, x) => cum + x) / n;
+  return arr.reduce((l, r) => l + r) / n;
 }
 
 /**
@@ -29,7 +29,8 @@ export function variance(arr: number[]): number {
     return 0;
   }
   const m = mean(arr);
-  return arr.reduce((cum, x) => cum + (x - m) ** 2) / (n - 1);
+  const it = arr[Symbol.iterator]();
+  return it.map((x) => (x - m) ** 2).reduce((l, r) => l + r) / (n - 1);
 }
 
 /**

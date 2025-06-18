@@ -9,7 +9,8 @@ describe("mean", () => {
     expect(mean([1])).toBeCloseTo(1);
   });
   it("others", () => {
-    expect(mean([1, 3])).toBeCloseTo(2);
+    expect(mean([2, 3])).toBeCloseTo(2.5);
+    expect(mean([1, 2, 3])).toBeCloseTo(2);
   });
 });
 
@@ -21,7 +22,8 @@ describe("variance", () => {
     expect(variance([1])).toBe(0);
   });
   it("others", () => {
-    expect(variance([1, 3])).toBeCloseTo(2);
+    expect(variance([2, 3])).toBeCloseTo(0.5);
+    expect(variance([1, 2, 3])).toBeCloseTo(1);
   });
 });
 
@@ -33,6 +35,7 @@ describe("stddev", () => {
     expect(stddev([1])).toBe(0);
   });
   it("others", () => {
-    expect(stddev([1, 3])).toBeCloseTo(Math.sqrt(2));
+    expect(stddev([2, 3])).toBeCloseTo(Math.sqrt(0.5));
+    expect(stddev([1, 2, 3])).toBeCloseTo(1);
   });
 });
