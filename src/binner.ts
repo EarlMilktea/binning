@@ -2,7 +2,7 @@
  * Binning analysis for correlated samples.
  * @module binner
  */
-import { mean, stddev, variance } from "./stats.js";
+import { mean, variance } from "./stats.js";
 
 function* pairIter(arr: number[]): Generator<[number, number]> {
   for (let i = 0; i + 1 < arr.length; i += 2) {
@@ -19,10 +19,25 @@ export default class BinaryBinner {
   #rawVar: number;
 
   /**
+   * Size of the bin for the given layer.
+   */
+  static binSize(layer: number): number {
+    if (layer < 0) {
+      const msg = "layer must be non-negative";
+      throw new Error(msg);
+    }
+    return 2 ** layer;
+  }
+
+  /**
    * Create a new BinaryBinner from a sequencial samples.
    * @param arr Sequence of samples.
    */
   constructor(arr: number[]) {
+    if (arr.length === 0) {
+      const msg = "arr must not be empty";
+      throw new Error(msg);
+    }
     this.#binned = [];
     let work = [...arr];
     while (work.length > 0) {
@@ -44,30 +59,10 @@ export default class BinaryBinner {
   }
 
   /**
-   * Number of binning layers.
+   * Number of binning layers in total.
    */
   get numLayers(): number {
     return this.#binned.length;
-  }
-
-  /**
-   * Size of the bin for the given layer.
-   * @param layer Defaults to 0.
-   */
-  binSize(layer: number = 0): number {
-    const _ = this.#getLayer(layer);
-    if (layer < 0) {
-      layer += this.numLayers;
-    }
-    return 2 ** layer;
-  }
-
-  /**
-   * Number of bins for the given layer.
-   * @param layer Defaults to 0.
-   */
-  numBins(layer: number = 0): number {
-    return this.#getLayer(layer).length;
   }
 
   /**
@@ -78,9 +73,23 @@ export default class BinaryBinner {
   }
 
   /**
+   * Number of bins for the given layer.
+   */
+  numBins(layer: number): number {
+    return this.#getLayer(layer).length;
+  }
+
+  /**
+   * Total number of samples.
+   */
+  get numSamples(): number {
+    return this.numBins(0);
+  }
+
+  /**
    * Mean of the whole samples.
    */
-  mean(): number {
+  get mean(): number {
     return this.#rawMean;
   }
 
@@ -99,10 +108,7 @@ export default class BinaryBinner {
    * Square root of {@link rawVariance}.
    */
   rawStdDev(layer?: number): number {
-    if (layer === undefined) {
-      return Math.sqrt(this.#rawVar);
-    }
-    return stddev(this.#getLayer(layer));
+    return Math.sqrt(this.rawVariance(layer));
   }
 
   /**
@@ -111,7 +117,9 @@ export default class BinaryBinner {
    * @returns Variance estimate. Its asymptotic value gives the standard error of the sample mean.
    */
   corVariance(layer: number): number {
-    return (this.binSize(layer) * this.rawVariance(layer)) / this.rawVariance();
+    return (
+      BinaryBinner.binSize(layer) * (this.rawVariance(layer) / this.numSamples)
+    );
   }
 
   /**
@@ -119,5 +127,18 @@ export default class BinaryBinner {
    */
   corStdDev(layer: number): number {
     return Math.sqrt(this.corVariance(layer));
+  }
+
+  /**
+   * Correlated sample mean variance divided by uncorrelated counterpart.
+   * Throws error if the denominator is zero.
+   */
+  ineff(layer: number): number {
+    const den = this.rawVariance();
+    if (den === 0) {
+      const msg = "Raw variance is zero.";
+      throw new Error(msg);
+    }
+    return BinaryBinner.binSize(layer) * (this.rawVariance(layer) / den);
   }
 }
