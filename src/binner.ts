@@ -131,14 +131,14 @@ export default class BinaryBinner {
 
   /**
    * Correlated sample mean variance divided by uncorrelated counterpart.
-   * Throws error if the denominator is zero.
+   * Results can be NaN of Infinity if the total variance is zero.
    */
   ineff(layer: number): number {
-    const den = this.rawVariance();
-    if (den === 0) {
-      const msg = "Raw variance is zero.";
-      throw new Error(msg);
-    }
-    return BinaryBinner.binSize(layer) * (this.rawVariance(layer) / den);
+    return (
+      BinaryBinner.binSize(layer) *
+      (this.rawVariance(layer) / this.rawVariance())
+    );
+  }
+
   }
 }

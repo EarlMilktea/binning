@@ -27,7 +27,7 @@ describe("BinaryBinner", () => {
     expect(obj.rawStdDev(0)).toBe(0);
     expect(obj.corVariance(0)).toBe(0);
     expect(obj.corStdDev(0)).toBe(0);
-    expect(() => obj.ineff(0)).toThrow("zero");
+    expect(obj.ineff(0)).toBe(NaN);
   });
 
   it("two", () => {
