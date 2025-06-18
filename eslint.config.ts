@@ -22,6 +22,12 @@ export default [
     rules: {
       "n/no-missing-import": "off",
       "n/no-unpublished-import": "off",
+      "tseslint/restrict-template-expressions": [
+        "error",
+        {
+          allowNumbers: true,
+        },
+      ],
     },
   },
 ];
