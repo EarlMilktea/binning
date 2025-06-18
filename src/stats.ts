@@ -5,6 +5,7 @@
 
 /**
  * Simple arithmetic mean.
+ * Returns 0 if empty.
  *
  * @param arr - Array of numbers.
  */
