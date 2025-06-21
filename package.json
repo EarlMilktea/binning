@@ -4,9 +4,9 @@
   "version": "0.1.0",
   "license": "MIT",
   "exports": {
-    ".": "./src/index.js",
-    "./binner.js": "./src/binner.js",
-    "./stats.js": "./src/stats.js"
+    ".": "./dist/src/index.js",
+    "./binner.js": "./dist/src/binner.js",
+    "./stats.js": "./dist/src/stats.js"
   },
   "dependencies": {},
   "devDependencies": {
