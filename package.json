@@ -32,6 +32,7 @@
     "lint:check": "eslint",
     "lint:format": "prettier --write .",
     "preinstall": "npx only-allow pnpm",
+    "prepack": "pnpm run build:dist",
     "test": "vitest run"
   }
 }
