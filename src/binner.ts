@@ -2,7 +2,7 @@
  * Binning analysis for correlated samples.
  * @module binner
  */
-import { mean, variance } from "./stats.js";
+import { mean, variance } from "binning/stats.js";
 
 function* pairIter(arr: number[]): Generator<[number, number]> {
   for (let i = 0; i + 1 < arr.length; i += 2) {
