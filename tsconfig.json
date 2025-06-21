@@ -1,8 +1,10 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
   "compilerOptions": {
+    "importHelpers": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "rootDir": "."
+    "outDir": "dist",
+    "rootDir": ".",
+    "target": "ES6"
   }
 }
