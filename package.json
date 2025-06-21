@@ -27,10 +27,10 @@
     "vitest": "^3.2.4"
   },
   "scripts": {
-    "build": "tsc && swc src -d dist",
     "build:check": "tsc --noEmit",
-    "format": "prettier --write .",
-    "lint": "eslint",
+    "build:dist": "tsc && swc src -d dist",
+    "lint:check": "eslint",
+    "lint:format": "prettier --write .",
     "preinstall": "npx only-allow pnpm",
     "test": "vitest run"
   }
