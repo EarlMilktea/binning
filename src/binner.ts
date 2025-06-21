@@ -19,7 +19,7 @@ export default class BinaryBinner {
   #rawVar: number;
 
   /**
-   * Size of the bin for the given layer.
+   * Bin size for the given layer.
    */
   static binSize(layer: number): number {
     if (layer < 0) {
@@ -66,7 +66,7 @@ export default class BinaryBinner {
   }
 
   /**
-   * Get a copy of the binned samples for the given layer.
+   * Get a copy of binned samples for the given layer.
    */
   layer(layer: number): number[] {
     return [...this.#getLayer(layer)];
@@ -94,7 +94,7 @@ export default class BinaryBinner {
   }
 
   /**
-   * Variance of the binned samples for the given layer.
+   * Variance of binned samples for the given layer.
    * @param layer Defaults to 0 (whole sample).
    */
   rawVariance(layer?: number): number {
@@ -114,7 +114,7 @@ export default class BinaryBinner {
   /**
    * Variance estimate of sample mean.
    * @param layer Target layer. Choose decent values so that both {@link binSize} and {@link numBins} are sufficiently large.
-   * @returns Variance estimate. Its asymptotic value gives the standard error of the sample mean.
+   * @returns Variance estimate. Its asymptotic value gives standard error of sample mean.
    */
   corVariance(layer: number): number {
     return (
@@ -131,7 +131,7 @@ export default class BinaryBinner {
 
   /**
    * Correlated sample mean variance divided by uncorrelated counterpart.
-   * Results can be NaN of Infinity if the total variance is zero.
+   * Results can be NaN of Infinity if total variance is zero.
    */
   ineff(layer: number): number {
     return (
