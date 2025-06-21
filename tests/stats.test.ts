@@ -1,4 +1,4 @@
-import { mean, stddev, variance } from "binning-api/stats.js";
+import { mean, stddev, variance } from "binning/stats.js";
 import { describe, expect, it } from "vitest";
 
 describe("mean", () => {

@@ -1,16 +1,17 @@
 {
-  "name": "binning-api",
+  "name": "binning",
   "type": "module",
   "version": "0.1.0",
   "license": "MIT",
   "engines": {
-    "node": ">=22"
+    "node": ">=20"
   },
   "exports": {
     ".": "./src/index.js",
     "./binner.js": "./src/binner.js",
     "./stats.js": "./src/stats.js"
   },
+  "dependencies": {},
   "devDependencies": {
     "@eslint/js": "^9.29.0",
     "@tsconfig/node22": "^22.0.2",
