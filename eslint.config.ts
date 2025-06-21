@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import prettier from "eslint-config-prettier";
+import pluginImport from "eslint-plugin-import";
 import node from "eslint-plugin-n";
 import { globalIgnores } from "eslint/config";
 import globals from "globals";
@@ -9,7 +10,7 @@ export default [
   {
     files: ["**/*.ts"],
   },
-  globalIgnores(["./dist/**"]),
+  globalIgnores(["./dist/**", "*.config.ts"]),
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
@@ -19,9 +20,14 @@ export default [
   js.configs.recommended,
   ...tseslint.config(tseslint.configs.strictTypeChecked),
   node.configs["flat/recommended"],
+  pluginImport.flatConfigs.recommended,
   prettier,
   {
     rules: {
+      "import/extensions": ["error", "always"],
+      "import/no-relative-packages": "error",
+      "import/no-relative-parent-imports": "error",
+      "import/no-unresolved": "off",
       "n/no-missing-import": "off",
       "n/no-unpublished-import": "off",
       "@typescript-eslint/restrict-template-expressions": [
