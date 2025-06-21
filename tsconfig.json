@@ -3,10 +3,10 @@
   "include": ["src/**/*.ts", "tests/**/*.ts"],
   "compilerOptions": {
     "declaration": true,
-    "importHelpers": true,
+    "emitDeclarationOnly": true,
     "isolatedModules": true,
     "outDir": "dist",
     "rootDir": ".",
-    "target": "ES6"
+    "verbatimModuleSyntax": true
   }
 }
