@@ -8,7 +8,6 @@
     "./binner.js": "./dist/src/binner.js",
     "./stats.js": "./dist/src/stats.js"
   },
-  "dependencies": {},
   "devDependencies": {
     "@eslint/js": "^9.29.0",
     "@swc/cli": "^0.7.7",
@@ -28,12 +27,13 @@
     "vitest": "^3.2.4"
   },
   "scripts": {
-    "build:check": "tsc --noEmit",
-    "build:dist": "tsc && swc src -d dist",
+    "build": "run-p build:*",
+    "build:tsc": "tsc",
+    "build:wsc": "swc src -d dist",
+    "lint": "run-p lint:*",
     "lint:check": "eslint",
     "lint:format": "prettier --write .",
-    "preinstall": "npx only-allow pnpm",
-    "prepack": "pnpm run build:dist",
+    "prepack": "run-s build",
     "test": "vitest run"
   }
 }
