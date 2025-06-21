@@ -27,8 +27,11 @@ export function variance(arr: number[]): number {
     return 0;
   }
   const m = mean(arr);
-  const it = arr[Symbol.iterator]();
-  return it.map((x) => (x - m) ** 2).reduce((l, r) => l + r) / (n - 1);
+  let cum = 0;
+  for (const x of arr) {
+    cum += (x - m) ** 2;
+  }
+  return cum / (n - 1);
 }
 
 /**

@@ -4,10 +4,12 @@
  */
 import { mean, variance } from "binning/stats.js";
 
-function* pairIter(arr: number[]): Generator<[number, number]> {
+function adjMean(arr: number[]): number[] {
+  const ret: number[] = [];
   for (let i = 0; i + 1 < arr.length; i += 2) {
-    yield [arr[i], arr[i + 1]];
+    ret.push((arr[i] + arr[i + 1]) / 2);
   }
+  return ret;
 }
 
 /**
@@ -42,7 +44,7 @@ export default class BinaryBinner {
     let work = [...arr];
     while (work.length > 0) {
       this.#binned.push(work);
-      const half = [...pairIter(work).map((ab) => mean(ab))];
+      const half = adjMean(work);
       work = half;
     }
     this.#rawMean = mean(arr);
