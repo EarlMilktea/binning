@@ -24,7 +24,7 @@ export default class BinaryBinner {
   static binSize(layer: number): number {
     if (layer < 0) {
       const msg = "layer must be non-negative";
-      throw new Error(msg);
+      throw new RangeError(msg);
     }
     return 2 ** layer;
   }
@@ -35,7 +35,7 @@ export default class BinaryBinner {
    */
   constructor(arr: number[]) {
     if (arr.length === 0) {
-      const msg = "arr must not be empty";
+      const msg = "Data sequence must not be empty";
       throw new Error(msg);
     }
     this.#binned = [];
@@ -53,7 +53,7 @@ export default class BinaryBinner {
     const ret = this.#binned.at(layer);
     if (ret === undefined) {
       const msg = `layer ${layer} out of bounds`;
-      throw new Error(msg);
+      throw new RangeError(msg);
     }
     return ret;
   }
@@ -138,7 +138,5 @@ export default class BinaryBinner {
       BinaryBinner.binSize(layer) *
       (this.rawVariance(layer) / this.rawVariance())
     );
-  }
-
   }
 }
