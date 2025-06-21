@@ -3,9 +3,6 @@
   "type": "module",
   "version": "0.1.0",
   "license": "MIT",
-  "engines": {
-    "node": ">=20"
-  },
   "exports": {
     ".": "./src/index.js",
     "./binner.js": "./src/binner.js",
