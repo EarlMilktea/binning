@@ -1,6 +1,8 @@
 {
   "extends": "@tsconfig/node22/tsconfig.json",
+  "include": ["src/**/*.ts", "test/**/*.ts"],
   "compilerOptions": {
+    "declaration": true,
     "importHelpers": true,
     "isolatedModules": true,
     "outDir": "dist",
