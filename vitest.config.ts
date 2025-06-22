@@ -3,6 +3,6 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   test: {
-    include: ["tests/**"],
+    include: ["src/**/*.test.ts"],
   },
 });

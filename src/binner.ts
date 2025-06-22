@@ -2,7 +2,7 @@
  * Binning analysis for correlated samples.
  * @module binner
  */
-import { mean, variance } from "binning/stats.js";
+import { mean, variance } from "./stats.js";
 
 function adjMean(arr: number[]): number[] {
   const ret: number[] = [];

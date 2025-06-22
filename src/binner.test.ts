@@ -1,5 +1,5 @@
-import BinaryBinner from "binning/binner.js";
 import { describe, expect, it } from "vitest";
+import BinaryBinner from "./binner.js";
 
 describe("BinaryBinner", () => {
   it("binSize", () => {

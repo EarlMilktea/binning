@@ -1,1 +1,1 @@
-export { default } from "binning/binner.js";
+export { default } from "./binner.js";
