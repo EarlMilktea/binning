@@ -31,8 +31,8 @@
   },
   "scripts": {
     "build": "run-p build:*",
+    "build:swc": "swc src -d dist",
     "build:tsc": "tsc",
-    "build:wsc": "swc src -d dist",
     "lint": "run-p lint:*",
     "lint:check": "eslint",
     "lint:format": "prettier --write .",
