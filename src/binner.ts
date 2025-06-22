@@ -52,7 +52,6 @@ export default class BinaryBinner {
   }
 
   #getLayer(layer: number): number[] {
-    // eslint-disable-next-line n/no-unsupported-features/es-syntax
     const ret = this.#binned.at(layer);
     if (ret === undefined) {
       const msg = `layer ${layer} out of bounds`;
