@@ -37,6 +37,7 @@
     "lint:check": "eslint",
     "lint:format": "prettier --write .",
     "prepack": "run-s build",
-    "test": "vitest run"
+    "test": "run-s build:swc test:run",
+    "test:run": "vitest run"
   }
 }
