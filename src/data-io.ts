@@ -3,6 +3,8 @@
  * @module data-io
  */
 
+import BinaryBinner from "./binner.js";
+
 /**
  * Validates input as a number matrix.
  */
@@ -139,4 +141,26 @@ export function selectData(
     ret = data.map((row) => row[op.index]);
   }
   return ret;
+}
+
+/**
+ * Outputs analysis statistics of {@link BinaryBinner}.
+ */
+export function binnerStat(binner: BinaryBinner) {
+  const cfg = { length: binner.numLayers } as const;
+  const bins = Array.from(cfg, (_, l) => BinaryBinner.binSize(l));
+  const samples = Array.from(cfg, (_, l) => binner.numBins(l));
+  const vars = Array.from(cfg, (_, l) => binner.corVariance(l));
+  const stds = Array.from(cfg, (_, l) => binner.corStdDev(l));
+  const ineffs = Array.from(cfg, (_, l) => binner.ineff(l));
+  return {
+    "total-mean": binner.mean,
+    "total-var-raw": binner.rawVariance(),
+    "total-std-raw": binner.rawStdDev(),
+    "bin-width": bins,
+    "num-bins": samples,
+    "var-binned": vars,
+    "std-binned": stds,
+    inefficiency: ineffs,
+  };
 }

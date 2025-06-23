@@ -6,6 +6,9 @@
   "engines": {
     "node": ">=18"
   },
+  "bin": {
+    "binning-cli": "./dist/src/cli.js"
+  },
   "exports": {
     ".": "./dist/src/index.js",
     "./binner.js": "./dist/src/binner.js",
