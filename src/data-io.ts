@@ -1,3 +1,11 @@
+/**
+ * Data IO for binning CLI.
+ * @module data-io
+ */
+
+/**
+ * Validates input as a number matrix.
+ */
 export function asMatrix(obj: unknown): number[][] {
   if (!Array.isArray(obj)) {
     const msg = "Not an array";
