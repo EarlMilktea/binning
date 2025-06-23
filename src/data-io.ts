@@ -7,14 +7,14 @@ export function asMatrix(obj: unknown): number[][] {
   if (obj.every(Array.isArray)) {
     // Parse as 2D array
     if (!obj.every((row) => row.every((val) => typeof val === "number"))) {
-      const msg = "Non-numeric values (2D)";
+      const msg = "Non-numeric values";
       throw new TypeError(msg);
     }
     arr = obj;
   } else {
     // Parse as 1D array
     if (!obj.every((val) => typeof val === "number")) {
-      const msg = "Non-numeric values (1D)";
+      const msg = "Non-numeric values";
       throw new TypeError(msg);
     }
     arr = obj.map((val) => [val]);

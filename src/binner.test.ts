@@ -1,19 +1,26 @@
 import { describe, expect, it } from "vitest";
 import BinaryBinner from "./binner.js";
 
-describe("BinaryBinner", () => {
-  it("binSize", () => {
+describe("BinaryBinner.binSize", () => {
+  it("throws if negative", () => {
     expect(() => BinaryBinner.binSize(-1)).toThrow("non-negative");
+  });
+
+  it("returns 2 ** n otherwise", () => {
     expect(BinaryBinner.binSize(0)).toBe(1);
     expect(BinaryBinner.binSize(1)).toBe(2);
     expect(BinaryBinner.binSize(2)).toBe(4);
+    expect(BinaryBinner.binSize(3)).toBe(8);
+    expect(BinaryBinner.binSize(4)).toBe(16);
   });
+});
 
-  it("empty", () => {
+describe("BinaryBinner", () => {
+  it("throws if empty", () => {
     expect(() => new BinaryBinner([])).toThrow("empty");
   });
 
-  it("single", () => {
+  it("works with length-one data", () => {
     const obj = new BinaryBinner([1]);
     expect(obj.numLayers).toBe(1);
     expect(obj.layer(0)[0]).toBeCloseTo(1);
@@ -30,7 +37,7 @@ describe("BinaryBinner", () => {
     expect(obj.ineff(0)).toBe(NaN);
   });
 
-  it("two", () => {
+  it("works with length-two data", () => {
     const obj = new BinaryBinner([1, 2]);
     expect(obj.numLayers).toBe(2);
     expect(obj.layer(0)[0]).toBeCloseTo(1);
@@ -54,7 +61,7 @@ describe("BinaryBinner", () => {
     expect(obj.ineff(1)).toBeCloseTo(0);
   });
 
-  it("others", () => {
+  it("is also fine otherwise", () => {
     const obj = new BinaryBinner([0, 1, 2, 3, 4]);
     expect(obj.numLayers).toBe(3);
     expect(obj.layer(0)[0]).toBeCloseTo(0);
