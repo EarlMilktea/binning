@@ -4,7 +4,7 @@ import BinaryBinner from "./binner.js";
 import { binnerStat, parseMatrix, selectData } from "./data-io.js";
 
 const parser = new ArgumentParser({
-  prog: "binning-cli",
+  prog: "binning",
   description: "Binning analysis tool written in TypeScript",
   add_help: true,
 });

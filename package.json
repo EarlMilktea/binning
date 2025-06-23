@@ -7,7 +7,7 @@
     "node": ">=18"
   },
   "bin": {
-    "binning-cli": "./dist/src/cli.js"
+    "binning": "./dist/src/cli.js"
   },
   "exports": {
     ".": "./dist/src/index.js",
