@@ -3,6 +3,9 @@
     "target": "es2022",
     "parser": {
       "syntax": "typescript"
+    },
+    "minify": {
+      "compress": true
     }
   }
 }
