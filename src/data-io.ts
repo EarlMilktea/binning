@@ -29,8 +29,12 @@ export function asMatrix(obj: unknown): number[][] {
       throw new Error(msg);
     }
     for (const val of row) {
+      if (Number.isNaN(val)) {
+        const msg = "Found NaN";
+        throw new Error(msg);
+      }
       if (!Number.isFinite(val)) {
-        const msg = "Infinity or NaN value";
+        const msg = "Found Infinity";
         throw new Error(msg);
       }
     }

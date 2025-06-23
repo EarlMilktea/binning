@@ -41,7 +41,7 @@ describe("asMatrix", () => {
   });
 
   it("throws if Infinity or NaN", () => {
-    expect(() => asMatrix([1, Infinity])).toThrow("Infinity or NaN");
-    expect(() => asMatrix([1, NaN])).toThrow("Infinity or NaN");
+    expect(() => asMatrix([1, NaN])).toThrow("NaN");
+    expect(() => asMatrix([1, Infinity])).toThrow("Infinity");
   });
 });
