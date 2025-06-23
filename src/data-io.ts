@@ -124,18 +124,19 @@ export function selectData(
     const msg = "Cannot infer data sequence from matrix";
     throw new Error(msg);
   }
+  let ret: number[];
   if (op.target === "row") {
     if (op.index < 0 || op.index >= rows) {
       const msg = `Row index out of bounds: ${op.index}`;
       throw new RangeError(msg);
     }
-    const ret = data[op.index];
-    return ret;
+    ret = data[op.index];
   } else {
     if (op.index < 0 || op.index >= cols) {
       const msg = `Column index out of bounds: ${op.index}`;
       throw new RangeError(msg);
     }
-    return data.map((row) => row[op.index]);
+    ret = data.map((row) => row[op.index]);
   }
+  return ret;
 }
