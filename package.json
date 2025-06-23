@@ -12,10 +12,14 @@
     "./data-io.js": "./dist/src/data-io.js",
     "./stats.js": "./dist/src/stats.js"
   },
+  "dependencies": {
+    "argparse": "^2.0.1"
+  },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
     "@swc/cli": "^0.7.7",
     "@tsconfig/node18": "^18.2.4",
+    "@types/argparse": "^2.0.17",
     "@vitest/coverage-v8": "^3.2.4",
     "eslint": "^9.29.0",
     "eslint-config-prettier": "^10.1.5",
