@@ -9,6 +9,7 @@
   "exports": {
     ".": "./dist/src/index.js",
     "./binner.js": "./dist/src/binner.js",
+    "./data-io.js": "./dist/src/data-io.js",
     "./stats.js": "./dist/src/stats.js"
   },
   "devDependencies": {
