@@ -3,6 +3,12 @@
   "type": "module",
   "version": "0.1.4",
   "license": "MIT",
+  "description": "Correlated data analyzer written in TypeScript",
+  "keywords": [
+    "Monte Carlo",
+    "data analysis",
+    "statistics"
+  ],
   "engines": {
     "node": ">=18"
   },
