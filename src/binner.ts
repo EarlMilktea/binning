@@ -4,7 +4,7 @@
  */
 import { mean, variance } from "./stats.js";
 
-function adjMean(arr: number[]): number[] {
+function adjMean(arr: readonly number[]): number[] {
   const ret: number[] = [];
   for (let i = 0; i + 1 < arr.length; i += 2) {
     ret.push((arr[i] + arr[i + 1]) / 2);
@@ -35,7 +35,7 @@ export default class BinaryBinner {
    * Create a new BinaryBinner from a sequencial samples.
    * @param arr Sequence of samples.
    */
-  constructor(arr: number[]) {
+  constructor(arr: readonly number[]) {
     if (arr.length === 0) {
       const msg = "Data sequence must not be empty";
       throw new Error(msg);

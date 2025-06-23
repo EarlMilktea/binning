@@ -105,10 +105,10 @@ export function parseMatrix(input: string): number[][] {
  * Extracts a data sequence from a matrix.
  */
 export function selectData(
-  data: number[][],
+  data: readonly number[][],
   op?: {
-    target: "row" | "col";
-    index: number;
+    readonly target: "row" | "col";
+    readonly index: number;
   },
 ): number[] {
   const rows = data.length;
