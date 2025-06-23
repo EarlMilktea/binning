@@ -110,7 +110,7 @@ echo -e "[[1,2,3],[4,5,6]]" | npx binning -c 1
 echo -e "1,2,3\n4,5,6" | npx binning -r 0
 ```
 
-## File IO
+### File IO
 
 ```bash
 # Read from input.json and write to output.json
