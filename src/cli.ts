@@ -5,7 +5,7 @@ import { binnerStat, parseMatrix, selectData } from "./data-io.js";
 
 const parser = new ArgumentParser({
   prog: "binning",
-  description: "Binning analysis tool written in TypeScript",
+  description: "Correlated data analyzer written in TypeScript",
   add_help: true,
 });
 
