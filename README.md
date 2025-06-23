@@ -9,7 +9,7 @@ Suppose you have a sequence of numbers drawn from a distribution:
 [0.30471707975443135, -1.0399841062404955, ..., -0.18284989730929277]
 ```
 
-Binning helps you with estimating the mean of the distribution, *without* assuming that the data are uncorrelated.
+Binning helps you with estimating the mean of the distribution, _without_ assuming that the data are uncorrelated.
 
 To begin with, install `npm` and run this package via `npx`:
 
