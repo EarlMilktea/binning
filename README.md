@@ -84,7 +84,7 @@ In the limit of large `bin-width` and `num-bins`, this gives the standard error 
 
 The correlated error estimate divided by the uncorrelated counterpart.
 
-In the above example, as `std-binned` are approximately equal to $0.01$ for large `bin-width` and `num-bins`, the final estimate of the original mean is $-0.01(1)$ .
+In the above example, as `std-binned` are approximately equal to 0.01 for large `bin-width` and `num-bins`, the final estimate of the original mean is -0.01(1) .
 
 ## 🔨 Usage
 
