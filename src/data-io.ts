@@ -41,3 +41,93 @@ export function asMatrix(obj: unknown): number[][] {
   }
   return arr;
 }
+
+function parseTable(input: string): unknown[] {
+  input = input.trim();
+  if (input.length === 0) {
+    return [];
+  }
+  const ret: unknown[] = [];
+  for (let line of input.split(/\r?\n/)) {
+    line = line.trim();
+    if (line.length === 0) {
+      const msg = "Empty line";
+      throw new Error(msg);
+    }
+    if (line.startsWith("#")) {
+      // Skip comments
+      continue;
+    }
+    if (!line.includes(",")) {
+      line = line.replace(/\s+/g, ",");
+    }
+    try {
+      ret.push(JSON.parse(`[${line}]`));
+    } catch (e) {
+      const msg = "Failed to parse row";
+      throw new SyntaxError(msg, { cause: e });
+    }
+  }
+  return ret;
+}
+
+function parse(input: string): unknown {
+  try {
+    return JSON.parse(input);
+  } catch (e) {
+    console.assert(e instanceof SyntaxError, "Unexpected error: %s", e);
+  }
+  if (input.includes("[") || input.includes("]")) {
+    const msg = "Failed to parse as JSON";
+    throw new SyntaxError(msg);
+  }
+  return parseTable(input);
+}
+
+/**
+ * Parses a string into a number matrix.
+ */
+export function parseMatrix(input: string): number[][] {
+  return asMatrix(parse(input));
+}
+
+/**
+ * Extracts a data sequence from a matrix.
+ */
+export function selectData(
+  data: number[][],
+  op?: {
+    target: "row" | "col";
+    index: number;
+  },
+): number[] {
+  const rows = data.length;
+  const cols = data.at(0)?.length;
+  if (cols === undefined) {
+    return [];
+  }
+  if (op === undefined) {
+    if (rows === 1) {
+      // 1D row vector
+      return data[0];
+    } else if (cols === 1) {
+      return data.map((row) => row[0]);
+    }
+    const msg = "Cannot infer data sequence from matrix";
+    throw new Error(msg);
+  }
+  if (op.target === "row") {
+    if (op.index < 0 || op.index >= rows) {
+      const msg = `Row index out of bounds: ${op.index}`;
+      throw new RangeError(msg);
+    }
+    const ret = data[op.index];
+    return ret;
+  } else {
+    if (op.index < 0 || op.index >= cols) {
+      const msg = `Column index out of bounds: ${op.index}`;
+      throw new RangeError(msg);
+    }
+    return data.map((row) => row[op.index]);
+  }
+}
