@@ -101,16 +101,15 @@ export function parseMatrix(input: string): number[][] {
   return asMatrix(parse(input));
 }
 
+export interface Op {
+  readonly target: "row" | "col";
+  readonly index: number;
+}
+
 /**
  * Extracts a data sequence from a matrix.
  */
-export function selectData(
-  data: readonly number[][],
-  op?: {
-    readonly target: "row" | "col";
-    readonly index: number;
-  },
-): number[] {
+export function selectData(data: readonly number[][], op?: Op): number[] {
   const rows = data.length;
   const cols = data.at(0)?.length;
   if (cols === undefined) {
