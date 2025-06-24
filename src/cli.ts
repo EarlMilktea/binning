@@ -13,7 +13,7 @@ parser.add_argument("-r", "--row", {
   type: "int",
   help: "0-based row index to analyze, inferred if not specified",
 });
-parser.add_argument("-c", "--column", {
+parser.add_argument("-c", "--col", {
   type: "int",
   help: "0-based column index to analyze, inferred if not specified",
 });
@@ -28,7 +28,7 @@ parser.add_argument("-o", "--output", {
 
 interface Args {
   row?: number;
-  column?: number;
+  col?: number;
   input?: string;
   output?: string;
 }
@@ -47,14 +47,14 @@ const input = fs.readFileSync(src, "utf-8");
 const arr = parseMatrix(input);
 
 let op: { target: "row" | "col"; index: number } | undefined;
-if (args.row !== undefined && args.column !== undefined) {
-  const msg = "--row and --column cannot be specified at the same time";
+if (args.row !== undefined && args.col !== undefined) {
+  const msg = "--row and --col cannot be specified at the same time";
   throw new Error(msg);
 }
 if (args.row !== undefined) {
   op = { target: "row", index: args.row };
-} else if (args.column !== undefined) {
-  op = { target: "col", index: args.column };
+} else if (args.col !== undefined) {
+  op = { target: "col", index: args.col };
 }
 
 const data = selectData(arr, op);
