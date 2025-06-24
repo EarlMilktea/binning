@@ -1,6 +1,6 @@
 /**
- * Data IO for binning CLI.
- * @module data-io
+ * @file data-io.ts
+ * @description IO utilities for binning CLI.
  */
 
 import BinaryBinner from "./binner.js";

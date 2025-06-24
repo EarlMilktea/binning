@@ -1,6 +1,6 @@
 /**
- * Binning analysis for correlated samples.
- * @module binner
+ * @file binner.ts
+ * @description Binning analyzer for correlated samples.
  */
 import { mean, variance } from "./stats.js";
 

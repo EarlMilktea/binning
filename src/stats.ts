@@ -1,6 +1,6 @@
 /**
- * Basic statistical functions.
- * @module stats
+ * @file stats.ts
+ * @description Basic statistical functions.
  */
 
 /**

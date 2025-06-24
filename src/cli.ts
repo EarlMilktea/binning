@@ -1,3 +1,8 @@
+/**
+ * @file cli.ts
+ * @description CLI entry point.
+ */
+
 import { ArgumentParser } from "argparse";
 import type { PathOrFileDescriptor } from "node:fs";
 import * as fs from "node:fs";
