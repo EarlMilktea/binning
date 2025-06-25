@@ -45,10 +45,12 @@ export function parseArgs(args?: string[]) {
   parser.add_argument("-i", "--input", {
     type: "str",
     help: "input source, defaults to stdin",
+    metavar: "SRC",
   });
   parser.add_argument("-o", "--output", {
     type: "str",
     help: "output destination, defaults to stdout",
+    metavar: "DST",
   });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
