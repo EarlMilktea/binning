@@ -1,6 +1,7 @@
 import js from "@eslint/js";
 import prettier from "eslint-config-prettier";
 import pluginImport from "eslint-plugin-import";
+import jsdoc from "eslint-plugin-jsdoc";
 import node from "eslint-plugin-n";
 import { globalIgnores } from "eslint/config";
 import globals from "globals";
@@ -21,6 +22,10 @@ export default [
   ...tseslint.config(tseslint.configs.strictTypeChecked),
   node.configs["flat/recommended"],
   pluginImport.flatConfigs.recommended,
+  {
+    ignores: ["**/*.test.ts"],
+    ...jsdoc.configs["flat/recommended-typescript-error"],
+  },
   prettier,
   {
     rules: {
