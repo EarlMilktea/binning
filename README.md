@@ -1,5 +1,8 @@
 # 🗂️ binning: Correlated data analyzer written in TypeScript
 
+[![npm version](https://badge.fury.io/js/binning.svg)](https://badge.fury.io/js/binning)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## 🚸 Binning Basics
 
 Suppose you have a sequence of numbers drawn from a distribution:
