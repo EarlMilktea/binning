@@ -4,6 +4,11 @@
  */
 import { mean, variance } from "./stats.js";
 
+/**
+ * Compute pairwise averages.
+ * @param arr Input array of numbers.
+ * @returns Array of numbers consisting of the averages for all the adjacent element pairs. Unpaired last element is dropped.
+ */
 function adjMean(arr: readonly number[]): number[] {
   const ret: number[] = [];
   for (let i = 0; i + 1 < arr.length; i += 2) {
@@ -21,7 +26,8 @@ export default class BinaryBinner {
   #rawVar: number;
 
   /**
-   * Bin size for the given layer.
+   * @param layer Target layer.
+   * @returns Size of the bin for the given layer.
    */
   static binSize(layer: number): number {
     if (layer < 0) {
@@ -32,7 +38,7 @@ export default class BinaryBinner {
   }
 
   /**
-   * Create a new BinaryBinner from a sequencial samples.
+   * Create a new {@link BinaryBinner} from a time series of samples.
    * @param arr Sequence of samples.
    */
   constructor(arr: readonly number[]) {
@@ -61,43 +67,45 @@ export default class BinaryBinner {
   }
 
   /**
-   * Number of binning layers in total.
+   * @returns Total number of layers.
    */
   get numLayers(): number {
     return this.#binned.length;
   }
 
   /**
-   * Get a copy of binned samples for the given layer.
+   * @param layer Target layer.
+   * @returns Copy of the internal binned data.
    */
   layer(layer: number): number[] {
     return [...this.#getLayer(layer)];
   }
 
   /**
-   * Number of bins for the given layer.
+   * @param layer Target layer.
+   * @returns Number of bins in the given layer.
    */
   numBins(layer: number): number {
     return this.#getLayer(layer).length;
   }
 
   /**
-   * Total number of samples.
+   * @returns Number of samples in total.
    */
   get numSamples(): number {
     return this.numBins(0);
   }
 
   /**
-   * Mean of the whole samples.
+   * @returns Mean of the original samples.
    */
   get mean(): number {
     return this.#rawMean;
   }
 
   /**
-   * Variance of binned samples for the given layer.
-   * @param layer Defaults to 0 (whole sample).
+   * @param layer Target layer. Defaults to 0.
+   * @returns Raw variance of the target layer.
    */
   rawVariance(layer?: number): number {
     if (layer === undefined) {
@@ -107,16 +115,16 @@ export default class BinaryBinner {
   }
 
   /**
-   * Square root of {@link rawVariance}.
+   * @param layer Target layer. Defaults to 0.
+   * @returns Square root of {@link rawVariance}.
    */
   rawStdDev(layer?: number): number {
     return Math.sqrt(this.rawVariance(layer));
   }
 
   /**
-   * Variance estimate of sample mean.
    * @param layer Target layer. Choose decent values so that both {@link binSize} and {@link numBins} are sufficiently large.
-   * @returns Variance estimate. Its asymptotic value gives standard error of sample mean.
+   * @returns Variance estimate. Its asymptotic value gives standard variance of the mean.
    */
   corVariance(layer: number): number {
     return (
@@ -125,20 +133,44 @@ export default class BinaryBinner {
   }
 
   /**
-   * Square root of {@link corVariance}.
+   * @param layer Target layer.
+   * @returns Square root of {@link corVariance}.
    */
   corStdDev(layer: number): number {
     return Math.sqrt(this.corVariance(layer));
   }
 
   /**
-   * Correlated sample mean variance divided by uncorrelated counterpart.
-   * Results can be NaN of Infinity if total variance is zero.
+   * Correlated sample mean variance divided by the uncorrelated counterpart.
+   * @param layer Target layer.
+   * @returns The ratio. Can be Infinity or NaN if {@link rawVariance} is zero.
    */
   ineff(layer: number): number {
     return (
       BinaryBinner.binSize(layer) *
       (this.rawVariance(layer) / this.rawVariance())
     );
+  }
+
+  /**
+   * @returns Analysis statistics of the data.
+   */
+  stat() {
+    const cfg = { length: this.numLayers } as const;
+    const bins = Array.from(cfg, (_, l) => BinaryBinner.binSize(l));
+    const samples = Array.from(cfg, (_, l) => this.numBins(l));
+    const vars = Array.from(cfg, (_, l) => this.corVariance(l));
+    const stds = Array.from(cfg, (_, l) => this.corStdDev(l));
+    const ineffs = Array.from(cfg, (_, l) => this.ineff(l));
+    return {
+      "total-mean": this.mean,
+      "total-var-raw": this.rawVariance(),
+      "total-std-raw": this.rawStdDev(),
+      "bin-width": bins,
+      "num-bins": samples,
+      "var-binned": vars,
+      "std-binned": stds,
+      inefficiency: ineffs,
+    };
   }
 }

@@ -4,9 +4,8 @@
  */
 
 /**
- * Simple arithmetic mean.
- * Returns 0 if empty.
- * @param arr - Array of numbers.
+ * @param arr Array of numbers.
+ * @returns Mean of the array. Return 0 if empty.
  */
 export function mean(arr: readonly number[]): number {
   const n = arr.length;
@@ -17,9 +16,8 @@ export function mean(arr: readonly number[]): number {
 }
 
 /**
- * Unbiased sample standard deviation.
- * Returns 0 for length-zero or one arrays.
- * @param arr - Array of numbers.
+ * @param arr Array of numbers.
+ * @returns Unbiased sample variance of the array. Return 0 if length-0 or 1.
  */
 export function variance(arr: readonly number[]): number {
   const n = arr.length;
@@ -35,8 +33,8 @@ export function variance(arr: readonly number[]): number {
 }
 
 /**
- * Square root of {@link variance}.
- * @param arr - Array of numbers.
+ * @param arr Array of numbers.
+ * @returns Square root of {@link variance}.
  */
 export function stddev(arr: readonly number[]): number {
   return Math.sqrt(variance(arr));

@@ -8,7 +8,7 @@ import type { PathOrFileDescriptor } from "node:fs";
 import * as fs from "node:fs";
 import { fileURLToPath } from "node:url";
 import BinaryBinner from "./binner.js";
-import { binnerStat, parseMatrix, selectData, type Op } from "./data-io.js";
+import { asMatrix, parseTable, selectData, type Op } from "./data-io.js";
 
 interface Args {
   row?: number;
@@ -23,6 +23,10 @@ interface Config {
   op?: Op;
 }
 
+/**
+ * @param args Command line arguments.
+ * @returns JS object containing parsed arguments.
+ */
 export function parseArgs(args?: string[]) {
   const parser = new ArgumentParser({
     prog: "binning",
@@ -68,15 +72,19 @@ export function parseArgs(args?: string[]) {
   return ret;
 }
 
+/**
+ * Binary entry point.
+ * @param cfg Configuration object.
+ */
 export function app(cfg: Config) {
   const { src, dst, op } = cfg;
 
   const input = fs.readFileSync(src, { encoding: "utf-8" });
-  const arr = parseMatrix(input);
+  const arr = asMatrix(parseTable(input));
 
   const binner = new BinaryBinner(selectData(arr, op));
 
-  const payload = JSON.stringify(binnerStat(binner), null, 2);
+  const payload = JSON.stringify(binner.stat(), null, 2);
   fs.writeFileSync(dst, payload);
 }
 

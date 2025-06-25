@@ -3,10 +3,10 @@
  * @description IO utilities for binning CLI.
  */
 
-import BinaryBinner from "./binner.js";
-
 /**
- * Validates input as a number matrix.
+ * Validate and normalize numeric matrix.
+ * @param obj Object to validate.
+ * @returns Input data as a number matrix.
  */
 export function asMatrix(obj: unknown): number[][] {
   if (!Array.isArray(obj)) {
@@ -52,7 +52,12 @@ export function asMatrix(obj: unknown): number[][] {
   return arr;
 }
 
-function parseTable(input: string): unknown[] {
+/**
+ * Interpret a string as a CSV-like table.
+ * @param input Input string to parse.
+ * @returns Parsed data.
+ */
+function parseTableText(input: string): unknown[] {
   input = input.trim();
   if (input.length === 0) {
     return [];
@@ -81,7 +86,12 @@ function parseTable(input: string): unknown[] {
   return ret;
 }
 
-function parse(input: string): unknown {
+/**
+ * Interpret a string as a JSON or CSV-like table.
+ * @param input Input string to parse.
+ * @returns Parsed data.
+ */
+export function parseTable(input: string): unknown {
   try {
     return JSON.parse(input);
   } catch (e) {
@@ -91,14 +101,7 @@ function parse(input: string): unknown {
     const msg = "Failed to parse as JSON";
     throw new SyntaxError(msg);
   }
-  return parseTable(input);
-}
-
-/**
- * Parses a string into a number matrix.
- */
-export function parseMatrix(input: string): number[][] {
-  return asMatrix(parse(input));
+  return parseTableText(input);
 }
 
 export interface Op {
@@ -107,7 +110,10 @@ export interface Op {
 }
 
 /**
- * Extracts a data sequence from a matrix.
+ * Extract a data sequence from a matrix.
+ * @param data Input matrix.
+ * @param op How to select data.
+ * @returns Selected data sequence.
  */
 export function selectData(data: readonly number[][], op?: Op): number[] {
   const rows = data.length;
@@ -140,26 +146,4 @@ export function selectData(data: readonly number[][], op?: Op): number[] {
     ret = data.map((row) => row[op.index]);
   }
   return ret;
-}
-
-/**
- * Outputs analysis statistics of {@link BinaryBinner}.
- */
-export function binnerStat(binner: BinaryBinner) {
-  const cfg = { length: binner.numLayers } as const;
-  const bins = Array.from(cfg, (_, l) => BinaryBinner.binSize(l));
-  const samples = Array.from(cfg, (_, l) => binner.numBins(l));
-  const vars = Array.from(cfg, (_, l) => binner.corVariance(l));
-  const stds = Array.from(cfg, (_, l) => binner.corStdDev(l));
-  const ineffs = Array.from(cfg, (_, l) => binner.ineff(l));
-  return {
-    "total-mean": binner.mean,
-    "total-var-raw": binner.rawVariance(),
-    "total-std-raw": binner.rawStdDev(),
-    "bin-width": bins,
-    "num-bins": samples,
-    "var-binned": vars,
-    "std-binned": stds,
-    inefficiency: ineffs,
-  };
 }
