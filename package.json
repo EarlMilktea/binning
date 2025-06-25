@@ -9,6 +9,10 @@
     "data analysis",
     "statistics"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EarlMilktea/binning.git"
+  },
   "engines": {
     "node": ">=18"
   },
