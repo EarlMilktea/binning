@@ -58,7 +58,7 @@ In the limit of large `bin-width` and `num-bins`, this gives the standard error 
 
 Correlated variance estimate divided by the uncorrelated counterpart.
 
-In the above example, as `std-binned` are approximately equal to 0.01 for large `bin-width` and `num-bins`, we get `-0.01(1)` as the final estimate.
+In the above example, as `std-binned` are approximately equal to `0.01` for large `bin-width` and `num-bins`, we get `-0.01(1)` as the final estimate.
 
 ## 🔨 Usage
 
