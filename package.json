@@ -17,8 +17,7 @@
     "node": ">=18"
   },
   "bin": {
-    "binning": "./dist/src/bin.cjs",
-    "binning-esm": "./dist/src/bin.mjs"
+    "binning": "./dist/src/bin.cjs"
   },
   "exports": {
     ".": "./dist/src/index.js",

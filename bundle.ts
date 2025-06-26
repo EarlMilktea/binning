@@ -15,12 +15,3 @@ await esbuild.build({
   format: "cjs",
   platform: "node",
 });
-
-await esbuild.build({
-  // Build ESM binary entry point
-  entryPoints: ["src/bin.ts"],
-  outfile: "dist/src/bin.mjs",
-  bundle: true,
-  format: "esm",
-  platform: "node",
-});
