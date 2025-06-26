@@ -6,7 +6,6 @@
 import { ArgumentParser } from "argparse";
 import fs from "node:fs";
 import { buffer } from "node:stream/consumers";
-import { fileURLToPath } from "node:url";
 import BinaryBinner from "./binner.js";
 import { asMatrix, parseTable, selectData, type Op } from "./data-io.js";
 
@@ -98,8 +97,8 @@ export async function app(cfg: Config) {
 }
 
 /* c8 ignore start */
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
+if (process.argv[1] === __filename) {
   const cfg = parseArgs();
-  await app(cfg);
+  app(cfg).catch(console.error);
 }
 /* c8 ignore stop */
