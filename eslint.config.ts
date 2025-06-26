@@ -11,7 +11,7 @@ export default [
   {
     files: ["**/*.ts"],
   },
-  globalIgnores(["./dist/**", "*.ts"]),
+  globalIgnores(["./dist/**", "*.config.ts", "bundle.ts"]),
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
@@ -33,7 +33,6 @@ export default [
       "import/no-relative-packages": "error",
       "import/no-relative-parent-imports": "error",
       "import/no-unresolved": "off",
-      "n/hashbang": "off",
       "n/no-missing-import": "off",
       "n/no-unpublished-import": "off",
       "@typescript-eslint/restrict-template-expressions": [

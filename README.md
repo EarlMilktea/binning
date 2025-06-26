@@ -80,7 +80,7 @@ echo "1 2 3" | npx binning
 ```bash
 # Analyze the column 1 of JSON
 echo "[[1,2,3],[4,5,6]]" | npx binning -c 1
-# Analayze the row 0 of CSV
+# Analyze the row 0 of CSV
 echo -e "1,2,3\n4,5,6" | npx binning -r 0
 ```
 

@@ -26,7 +26,7 @@ interface Config {
  * @param args Command line arguments.
  * @returns JS object containing parsed arguments.
  */
-export function parseArgs(args?: string[]) {
+export function parseArgs(args?: string[]): Config {
   const parser = new ArgumentParser({
     prog: "binning",
     description: "Correlated data analyzer written in TypeScript",

@@ -14,4 +14,5 @@ await esbuild.build({
   bundle: true,
   format: "cjs",
   platform: "node",
+  banner: { js: "#!/usr/bin/env node" },
 });

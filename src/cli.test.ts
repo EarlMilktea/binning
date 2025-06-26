@@ -13,12 +13,14 @@ describe("parseArgs", () => {
   it("works with --row", () => {
     expect(parseArgs(["--row", "1", "-i", "hoge"])).toEqual({
       src: "hoge",
+      dst: undefined,
       op: { target: "row", index: 1 },
     });
   });
 
   it("works with --col", () => {
     expect(parseArgs(["--col", "2", "-o", "fuga"])).toEqual({
+      src: undefined,
       dst: "fuga",
       op: { target: "col", index: 2 },
     });
