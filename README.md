@@ -91,6 +91,12 @@ echo -e "1,2,3\n4,5,6" | npx binning -r 0
 npx binning -i input.json -o output.json
 ```
 
+### 🦕 Running from Deno
+
+```bash
+echo "1 2 3" | deno run -r -A npm:binning
+```
+
 ## ☑ Notes
 
 - You can use `#` as a comment char.
