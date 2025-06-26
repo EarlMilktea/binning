@@ -1,8 +1,6 @@
 .github
 .prettierrc
 bundle.ts
-dist/src/bin.d.ts
-dist/src/bin.js
 node_modules
 pnpm-lock.yaml
 pnpm-workspace.yaml
