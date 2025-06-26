@@ -50,4 +50,4 @@ jobs:
       - run: |
           deno install
           deno run -A ./bundle.ts
-          echo "[1, 2, 3]" | deno run -A ./dist/src/bin.cjs
+          echo "[1, 2, 3]" | deno run -A ./dist/src/bin.js
