@@ -40,7 +40,6 @@ jobs:
           echo "[1, 2, 3]" | binning
 
   test-deno:
-    needs: build
     runs-on: ubuntu-latest
 
     steps:
