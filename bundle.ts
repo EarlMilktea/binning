@@ -1,18 +1,15 @@
 import esbuild from "esbuild";
+import fs from "node:fs";
+import path from "node:path";
+
+const src = fs
+  .readdirSync("src")
+  .filter((f) => f.endsWith(".ts") && !f.endsWith("test.ts"))
+  .map((f) => path.join("src", f));
 
 await esbuild.build({
-  // Build ESM library modules
-  entryPoints: ["src/*.ts"],
+  entryPoints: src,
   outdir: "dist/src",
   format: "esm",
-});
-
-await esbuild.build({
-  // Build CJS binary entry point
-  entryPoints: ["src/bin.ts"],
-  outfile: "dist/src/bin.cjs",
-  bundle: true,
-  format: "cjs",
-  platform: "node",
   banner: { js: "#!/usr/bin/env node" },
 });
