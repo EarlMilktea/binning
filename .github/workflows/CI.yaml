@@ -26,22 +26,32 @@ jobs:
 
   test-node:
     needs: build
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: ["18", "20", "22", "24"]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
 
       - uses: actions/download-artifact@v4
         with:
           name: packed-tgz
 
-      - run: |
+      - shell: bash
+        run: |
           npm install -g ./binning-*.tgz
           echo "[1, 2, 3]" | binning
 
   test-deno:
     needs: build
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - uses: denoland/setup-deno@v2
@@ -50,7 +60,8 @@ jobs:
         with:
           name: packed-tgz
 
-      - run: |
+      - shell: bash
+        run: |
           tar xvf ./binning-*.tgz
           cd package
           deno install
