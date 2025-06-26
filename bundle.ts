@@ -1,14 +1,11 @@
 import esbuild from "esbuild";
-import fs from "node:fs/promises";
+import fs from "node:fs";
+import path from "node:path";
 
-const src: string[] = [];
-
-for await (const f of fs.glob("src/**/*.ts")) {
-  if (f.endsWith("test.ts")) {
-    continue;
-  }
-  src.push(f);
-}
+const src = fs
+  .readdirSync("src")
+  .filter((f) => f.endsWith(".ts") && !f.endsWith("test.ts"))
+  .map((f) => path.join("src", f));
 
 await esbuild.build({
   entryPoints: src,
