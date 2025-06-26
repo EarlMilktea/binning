@@ -40,14 +40,18 @@ jobs:
           echo "[1, 2, 3]" | binning
 
   test-deno:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-
       - uses: denoland/setup-deno@v2
 
+      - uses: actions/download-artifact@v4
+        with:
+          name: packed-tgz
+
       - run: |
+          tar xvf ./binning-*.tgz
+          cd package
           deno install
-          deno run -A ./bundle.ts
           echo "[1, 2, 3]" | deno run -A ./dist/src/bin.js
