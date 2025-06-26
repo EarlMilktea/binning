@@ -56,7 +56,8 @@
     "build:tsc": "tsc",
     "lint": "run-p lint:*",
     "lint:check": "eslint",
-    "lint:format": "prettier --write .",
+    "lint:format": "prettier --check .",
+    "lint:format:write": "prettier --write .",
     "prepack": "run-s build",
     "test": "vitest run"
   }
