@@ -159,16 +159,13 @@ export default class BinaryBinner {
     const cfg = { length: this.numLayers } as const;
     const bins = Array.from(cfg, (_, l) => BinaryBinner.binSize(l));
     const samples = Array.from(cfg, (_, l) => this.numBins(l));
-    const vars = Array.from(cfg, (_, l) => this.corVariance(l));
     const stds = Array.from(cfg, (_, l) => this.corStdDev(l));
     const ineffs = Array.from(cfg, (_, l) => this.ineff(l));
     return {
       "total-mean": this.mean,
-      "total-var-raw": this.rawVariance(),
       "total-std-raw": this.rawStdDev(),
       "bin-width": bins,
       "num-bins": samples,
-      "var-binned": vars,
       "std-binned": stds,
       inefficiency: ineffs,
     };

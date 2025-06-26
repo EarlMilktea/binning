@@ -11,7 +11,7 @@ export default [
   {
     files: ["**/*.ts"],
   },
-  globalIgnores(["./dist/**", "*.config.ts"]),
+  globalIgnores(["./dist/**", "*.config.ts", "bundle.ts"]),
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },

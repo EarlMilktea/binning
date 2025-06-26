@@ -9,15 +9,20 @@
     "data analysis",
     "statistics"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EarlMilktea/binning.git"
+  },
   "engines": {
     "node": ">=18"
   },
   "bin": {
-    "binning": "./dist/src/cli.js"
+    "binning": "./dist/src/bin.cjs"
   },
   "exports": {
     ".": "./dist/src/index.js",
     "./binner.js": "./dist/src/binner.js",
+    "./cli.js": "./dist/src/cli.js",
     "./data-io.js": "./dist/src/data-io.js",
     "./stats.js": "./dist/src/stats.js"
   },
@@ -26,10 +31,11 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
-    "@swc/cli": "^0.7.7",
     "@tsconfig/node18": "^18.2.4",
     "@types/argparse": "^2.0.17",
+    "@types/node": "^24.0.4",
     "@vitest/coverage-v8": "^3.2.4",
+    "esbuild": "^0.25.5",
     "eslint": "^9.29.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-import": "^2.32.0",
@@ -46,7 +52,7 @@
   },
   "scripts": {
     "build": "run-p build:*",
-    "build:swc": "swc src -d dist",
+    "build:esbuild": "jiti bundle.ts",
     "build:tsc": "tsc",
     "lint": "run-p lint:*",
     "lint:check": "eslint",

@@ -4,9 +4,8 @@
  */
 
 import { ArgumentParser } from "argparse";
-import type { PathOrFileDescriptor } from "node:fs";
-import * as fs from "node:fs";
-import { fileURLToPath } from "node:url";
+import fs from "node:fs";
+import { buffer } from "node:stream/consumers";
 import BinaryBinner from "./binner.js";
 import { asMatrix, parseTable, selectData, type Op } from "./data-io.js";
 
@@ -18,8 +17,8 @@ interface Args {
 }
 
 interface Config {
-  src: PathOrFileDescriptor;
-  dst: PathOrFileDescriptor;
+  src?: string;
+  dst?: string;
   op?: Op;
 }
 
@@ -27,7 +26,7 @@ interface Config {
  * @param args Command line arguments.
  * @returns JS object containing parsed arguments.
  */
-export function parseArgs(args?: string[]) {
+export function parseArgs(args?: string[]): Config {
   const parser = new ArgumentParser({
     prog: "binning",
     description: "Correlated data analyzer written in TypeScript",
@@ -45,19 +44,18 @@ export function parseArgs(args?: string[]) {
   parser.add_argument("-i", "--input", {
     type: "str",
     help: "input source, defaults to stdin",
+    metavar: "SRC",
   });
   parser.add_argument("-o", "--output", {
     type: "str",
     help: "output destination, defaults to stdout",
+    metavar: "DST",
   });
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const cfg: Args = parser.parse_args(args);
 
-  const src = cfg.input ?? process.stdin.fd;
-  const dst = cfg.output ?? process.stdout.fd;
-  const ret: Config = { src, dst };
-
+  const ret: Config = { src: cfg.input, dst: cfg.output };
   if (cfg.row !== undefined && cfg.col !== undefined) {
     const msg = "--row and --col cannot be specified at the same time";
     throw new Error(msg);
@@ -73,24 +71,27 @@ export function parseArgs(args?: string[]) {
 }
 
 /**
+ * Read input from stream without being bothered by EAGAIN.
+ * @param input Readable stream to read from.
+ * @returns Promise that resolves to a string read from the stream.
+ */
+async function readAll(input: NodeJS.ReadableStream): Promise<string> {
+  return (await buffer(input)).toString("utf-8");
+}
+
+/**
  * Binary entry point.
  * @param cfg Configuration object.
  */
-export function app(cfg: Config) {
+export async function app(cfg: Config) {
   const { src, dst, op } = cfg;
 
-  const input = fs.readFileSync(src, { encoding: "utf-8" });
+  const stream = src !== undefined ? fs.createReadStream(src) : process.stdin;
+  const input = await readAll(stream);
   const arr = asMatrix(parseTable(input));
 
   const binner = new BinaryBinner(selectData(arr, op));
 
   const payload = JSON.stringify(binner.stat(), null, 2);
-  fs.writeFileSync(dst, payload);
+  fs.writeFileSync(dst ?? process.stdout.fd, payload);
 }
-
-/* c8 ignore start */
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  const cfg = parseArgs();
-  app(cfg);
-}
-/* c8 ignore stop */
