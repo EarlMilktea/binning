@@ -2,6 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/binning.svg)](https://badge.fury.io/js/binning)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/EarlMilktea/binning/actions/workflows/CI.yaml/badge.svg)](https://github.com/EarlMilktea/binning/actions/workflows/CI.yaml)
 
 ## 🚸 Binning Basics
 
