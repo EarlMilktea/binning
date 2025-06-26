@@ -26,6 +26,7 @@
     "./data-io.js": "./dist/src/data-io.js",
     "./stats.js": "./dist/src/stats.js"
   },
+  "types": "./dist/src/index.d.ts",
   "dependencies": {
     "argparse": "^2.0.1"
   },
