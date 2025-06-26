@@ -18,7 +18,7 @@
   },
   "bin": {
     "binning": "./dist/src/bin.cjs",
-    "binning-esm": "./dist/src/binning.js"
+    "binning-esm": "./dist/src/bin.mjs"
   },
   "exports": {
     ".": "./dist/src/index.js",
