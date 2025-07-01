@@ -128,6 +128,10 @@ describe("parseTable", () => {
   it("does not proceed to table mode if JSON-like", () => {
     expect(() => parseTable("[/]")).toThrow("Failed to parse as JSON");
   });
+
+  it("works with mixed line endings", () => {
+    expect(parseTable("1\r\n2\n3")).toEqual([[1], [2], [3]]);
+  });
 });
 
 describe("selectData", () => {
