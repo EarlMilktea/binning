@@ -79,8 +79,19 @@ describe("parseTable", () => {
     expect(parseTable("1\n2\n3")).toEqual([[1], [2], [3]]);
   });
 
+  it("throws on leading whitespace", () => {
+    expect(() => parseTable(" 1,2\n3,4")).toThrow("whitespace");
+  });
+
   it("throws if row is empty", () => {
+    expect(parseTable("1,2\n# comment\n3,4")).toEqual([
+      [1, 2],
+      [3, 4],
+    ]);
     expect(() => parseTable("1,2\n\n3,4")).toThrow("Empty line");
+    // Leading \n: NG
+    expect(() => parseTable("\n1,2\n")).toThrow("Empty line");
+    // Trailing \n: OK
     expect(parseTable("1,2\n\n")).toEqual([[1, 2]]);
   });
 
@@ -100,8 +111,15 @@ describe("parseTable", () => {
     expect(() => parseTable("1,2\n3,a")).toThrow("Failed to parse row");
   });
 
-  it("ignores comments", () => {
+  it("ignores comments (whole line)", () => {
     expect(parseTable("# hogefuga\n1,2\n3,4")).toEqual([
+      [1, 2],
+      [3, 4],
+    ]);
+  });
+
+  it("ignores comments (partial)", () => {
+    expect(parseTable("1,2 # hoge\n3,4 # fuga")).toEqual([
       [1, 2],
       [3, 4],
     ]);
@@ -109,6 +127,10 @@ describe("parseTable", () => {
 
   it("does not proceed to table mode if JSON-like", () => {
     expect(() => parseTable("[/]")).toThrow("Failed to parse as JSON");
+  });
+
+  it("works with mixed line endings", () => {
+    expect(parseTable("1\r\n2\n3")).toEqual([[1], [2], [3]]);
   });
 });
 
