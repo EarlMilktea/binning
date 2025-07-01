@@ -58,20 +58,27 @@ export function asMatrix(obj: unknown): number[][] {
  * @returns Parsed data.
  */
 function parseTableText(input: string): unknown[] {
-  input = input.trim();
+  input = input.trimEnd();
   if (input.length === 0) {
     return [];
   }
   const ret: unknown[] = [];
   for (let line of input.split(/\r?\n/)) {
-    line = line.trim();
+    line = line.trimEnd();
     if (line.length === 0) {
       const msg = "Empty line";
       throw new Error(msg);
     }
-    if (line.startsWith("#")) {
-      // Skip comments
-      continue;
+    const m = line.match(/([^#]*)(#.*)?/);
+    if (m !== null) {
+      line = m[1].trimEnd();
+      if (line.length === 0) {
+        continue;
+      }
+    }
+    if (line.match(/^\s/) !== null) {
+      const msg = "Leading whitespace";
+      throw new SyntaxError(msg);
     }
     if (!line.includes(",")) {
       line = line.replace(/\s+/g, ",");
