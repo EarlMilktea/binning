@@ -1,7 +1,7 @@
 {
   "name": "binning",
   "type": "module",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "license": "MIT",
   "description": "Correlated data analyzer written in TypeScript",
   "keywords": [
