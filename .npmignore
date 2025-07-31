@@ -1,4 +1,5 @@
 .github
+.prettierignore
 .prettierrc
 bundle.ts
 node_modules
