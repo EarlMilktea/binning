@@ -27,6 +27,7 @@ jobs:
         with:
           name: packed-tgz
           path: ./binning-*.tgz
+          retention-days: 1
 
   test-node:
     needs: build
