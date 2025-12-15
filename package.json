@@ -34,7 +34,7 @@
     "@eslint/js": "^9.39.1",
     "@tsconfig/node18": "^18.2.4",
     "@types/argparse": "^2.0.17",
-    "@types/node": "^24.10.0",
+    "@types/node": "^25.0.2",
     "@vitest/coverage-v8": "^4.0.8",
     "esbuild": "^0.27.0",
     "eslint": "^9.39.1",
