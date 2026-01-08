@@ -3,11 +3,11 @@ import prettier from "eslint-config-prettier";
 import pluginImport from "eslint-plugin-import";
 import jsdoc from "eslint-plugin-jsdoc";
 import node from "eslint-plugin-n";
-import { globalIgnores } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
-export default [
+export default defineConfig([
   {
     files: ["**/*.ts"],
   },
@@ -19,7 +19,7 @@ export default [
     },
   },
   js.configs.recommended,
-  ...tseslint.config(tseslint.configs.strictTypeChecked),
+  ...tseslint.configs.strictTypeChecked,
   node.configs["flat/recommended"],
   pluginImport.flatConfigs.recommended,
   {
@@ -43,4 +43,4 @@ export default [
       ],
     },
   },
-];
+]);
