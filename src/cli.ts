@@ -83,7 +83,7 @@ async function readAll(input: NodeJS.ReadableStream): Promise<string> {
  * Binary entry point.
  * @param cfg Configuration object.
  */
-export async function app(cfg: Config) {
+export async function app(cfg: Config): Promise<void> {
   const { src, dst, op } = cfg;
 
   const stream = src !== undefined ? fs.createReadStream(src) : process.stdin;
