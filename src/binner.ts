@@ -9,10 +9,11 @@ import { mean, variance } from "./stats.js";
  * @param arr Input array of numbers.
  * @returns Array of numbers consisting of the averages for all the adjacent element pairs. Unpaired last element is dropped.
  */
-function adjMean(arr: readonly number[]): number[] {
-  const ret: number[] = [];
+function adjMean(arr: Float64Array): Float64Array<ArrayBuffer> {
+  const half = Math.floor(arr.length / 2);
+  const ret = new Float64Array(half);
   for (let i = 0; i + 1 < arr.length; i += 2) {
-    ret.push((arr[i] + arr[i + 1]) / 2);
+    ret[i / 2] = (arr[i] + arr[i + 1]) / 2;
   }
   return ret;
 }
@@ -21,7 +22,7 @@ function adjMean(arr: readonly number[]): number[] {
  * Binary binner used for estimating standard errors from correlated samples.
  */
 export default class BinaryBinner {
-  #binned: number[][];
+  #binned: Float64Array<ArrayBuffer>[];
   #rawMean: number;
   #rawVar: number;
 
@@ -41,23 +42,22 @@ export default class BinaryBinner {
    * Create a new {@link BinaryBinner} from a time series of samples.
    * @param arr Sequence of samples.
    */
-  constructor(arr: readonly number[]) {
-    if (arr.length === 0) {
+  constructor(arr: Iterable<number>) {
+    let work = Float64Array.from(arr);
+    if (work.length === 0) {
       const msg = "Data sequence must not be empty";
       throw new Error(msg);
     }
     this.#binned = [];
-    let work = [...arr];
     while (work.length > 0) {
       this.#binned.push(work);
-      const half = adjMean(work);
-      work = half;
+      work = adjMean(work);
     }
     this.#rawMean = mean(arr);
     this.#rawVar = variance(arr);
   }
 
-  #getLayer(layer: number): number[] {
+  #getLayer(layer: number): Float64Array<ArrayBuffer> {
     const ret = this.#binned.at(layer);
     if (ret === undefined) {
       const msg = `layer ${layer} out of bounds`;
@@ -77,8 +77,8 @@ export default class BinaryBinner {
    * @param layer Target layer.
    * @returns Copy of the internal binned data.
    */
-  layer(layer: number): number[] {
-    return [...this.#getLayer(layer)];
+  layer(layer: number): Float64Array<ArrayBuffer> {
+    return Float64Array.from(this.#getLayer(layer));
   }
 
   /**
@@ -157,10 +157,10 @@ export default class BinaryBinner {
    */
   stat() {
     const cfg = { length: this.numLayers } as const;
-    const bins = Array.from(cfg, (_, l) => BinaryBinner.binSize(l));
-    const samples = Array.from(cfg, (_, l) => this.numBins(l));
-    const stds = Array.from(cfg, (_, l) => this.corStdDev(l));
-    const ineffs = Array.from(cfg, (_, l) => this.ineff(l));
+    const bins = Float64Array.from(cfg, (_, l) => BinaryBinner.binSize(l));
+    const samples = Float64Array.from(cfg, (_, l) => this.numBins(l));
+    const stds = Float64Array.from(cfg, (_, l) => this.corStdDev(l));
+    const ineffs = Float64Array.from(cfg, (_, l) => this.ineff(l));
     return {
       "total-mean": this.mean,
       "total-std-raw": this.rawStdDev(),
