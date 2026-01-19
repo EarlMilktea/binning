@@ -9,3 +9,5 @@ src/
 tsconfig.json
 *.config.ts
 *.tgz
+dist/*.d.ts
+dist/src/*.test.d.ts
