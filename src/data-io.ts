@@ -3,52 +3,72 @@
  * @description IO utilities for binning CLI.
  */
 
+import { Type, type Static } from "typebox";
+import Value from "typebox/value";
+
+const NumT = Type.Number({
+  exclusiveMinimum: -Infinity,
+  exclusiveMaximum: Infinity,
+});
+const NumVecT = Type.Array(NumT);
+const NumMatT = Type.Array(NumVecT);
+
 /**
- * Validate and normalize numeric matrix.
+ * Try to parse a 1D numeric array.
  * @param obj Object to validate.
- * @returns Input data as a number matrix.
+ * @returns Parsed array or null.
  */
-export function asMatrix(obj: unknown): number[][] {
-  if (!Array.isArray(obj)) {
-    const msg = "Not an array";
-    throw new TypeError(msg);
+function parse1DArray(obj: unknown): number[][] | null {
+  try {
+    const arr = Value.Parse(NumVecT, obj);
+    return arr.map((v) => [v]);
+  } catch {
+    return null;
   }
-  let arr: number[][];
-  if (obj.every(Array.isArray)) {
-    // Parse as 2D array
-    if (!obj.every((row) => row.every((val) => typeof val === "number"))) {
-      const msg = "Non-numeric values";
-      throw new TypeError(msg);
-    }
-    arr = obj;
-  } else {
-    // Parse as 1D array
-    if (!obj.every((val) => typeof val === "number")) {
-      const msg = "Non-numeric values";
-      throw new TypeError(msg);
-    }
-    arr = obj.map((val) => [val]);
+}
+
+/**
+ * Try to parse a 2D numeric array.
+ * @param obj Object to validate.
+ * @returns Parsed array or null.
+ */
+function parse2DArray(obj: unknown): number[][] | null {
+  try {
+    return Value.Parse(NumMatT, obj);
+  } catch {
+    return null;
   }
+}
+
+/**
+ * Check if a 2D array is jagged.
+ * @param arr Input 2D array.
+ */
+function checkJagged(arr: readonly (readonly number[])[]): void {
   const len = arr.at(0)?.length;
   if (len === undefined) {
-    return arr;
+    return;
   }
   for (const row of arr) {
     if (row.length !== len) {
       const msg = "Jagged array";
       throw new Error(msg);
     }
-    for (const val of row) {
-      if (Number.isNaN(val)) {
-        const msg = "Found NaN";
-        throw new Error(msg);
-      }
-      if (!Number.isFinite(val)) {
-        const msg = "Found Infinity";
-        throw new Error(msg);
-      }
-    }
   }
+}
+
+/**
+ * Validate and normalize numeric matrix.
+ * @param obj Object to validate.
+ * @returns Input data as a number matrix.
+ */
+export function asMatrix(obj: unknown): Static<typeof NumMatT> {
+  const arr = parse2DArray(obj) ?? parse1DArray(obj);
+  if (arr === null) {
+    const msg = "Not an array of finite numbers";
+    throw new Error(msg);
+  }
+  checkJagged(arr);
   return arr;
 }
 

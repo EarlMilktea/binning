@@ -28,7 +28,8 @@
   },
   "types": "./dist/src/index.d.ts",
   "dependencies": {
-    "argparse": "^2.0.1"
+    "argparse": "^2.0.1",
+    "typebox": "^1.0.78"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",

@@ -32,8 +32,8 @@ describe("asMatrix", () => {
   });
 
   it("throws if non-numerical", () => {
-    expect(() => asMatrix([[1, "a"]])).toThrow("Non-numeric");
-    expect(() => asMatrix([1, "a"])).toThrow("Non-numeric");
+    expect(() => asMatrix([[1, "a"]])).toThrow("Not an array");
+    expect(() => asMatrix([1, "a"])).toThrow("Not an array");
   });
 
   it("throws if jagged", () => {
@@ -41,8 +41,8 @@ describe("asMatrix", () => {
   });
 
   it("throws if Infinity or NaN", () => {
-    expect(() => asMatrix([1, NaN])).toThrow("NaN");
-    expect(() => asMatrix([1, Infinity])).toThrow("Infinity");
+    expect(() => asMatrix([1, NaN])).toThrow("Not an array");
+    expect(() => asMatrix([1, Infinity])).toThrow("Not an array");
   });
 });
 
