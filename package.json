@@ -1,7 +1,7 @@
 {
   "name": "binning",
   "type": "module",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "license": "MIT",
   "description": "Correlated data analyzer written in TypeScript",
   "keywords": [
@@ -14,7 +14,7 @@
     "url": "git+https://github.com/EarlMilktea/binning.git"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "bin": {
     "binning": "./dist/src/bin.js"
@@ -28,28 +28,29 @@
   },
   "types": "./dist/src/index.d.ts",
   "dependencies": {
-    "argparse": "^2.0.1"
+    "argparse": "^2.0.1",
+    "typebox": "^1.0.78"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@tsconfig/node18": "^18.2.6",
+    "@tsconfig/node20": "^20.1.8",
     "@types/argparse": "^2.0.17",
-    "@types/node": "^25.0.3",
-    "@vitest/coverage-v8": "^4.0.16",
+    "@types/node": "^25.0.9",
+    "@vitest/coverage-v8": "^4.0.17",
     "esbuild": "^0.27.2",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jsdoc": "^61.7.1",
-    "eslint-plugin-n": "^17.23.1",
+    "eslint-plugin-jsdoc": "^62.1.0",
+    "eslint-plugin-n": "^17.23.2",
     "globals": "^17.0.0",
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.0",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.52.0",
+    "typescript-eslint": "^8.53.0",
     "vite": "^7.3.1",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.17"
   },
   "scripts": {
     "build": "run-p build:*",

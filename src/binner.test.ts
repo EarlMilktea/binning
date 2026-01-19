@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { assert, describe, expect, it } from "vitest";
 import BinaryBinner from "./binner.js";
 
 describe("BinaryBinner.binSize", () => {
@@ -86,5 +86,12 @@ describe("BinaryBinner", () => {
     expect(obj.numBins(1)).toBe(2);
     expect(obj.numBins(2)).toBe(1);
     expect(obj.numSamples).toBe(5);
+  });
+
+  it("works with iterators", () => {
+    const arr = [0.1, 0.2, 0.3, 0.4, 0.5] as const;
+    const ref = new BinaryBinner(arr);
+    const cmp = new BinaryBinner(arr.values());
+    assert.deepEqual(cmp, ref);
   });
 });

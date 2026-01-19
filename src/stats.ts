@@ -4,38 +4,42 @@
  */
 
 /**
- * @param arr Array of numbers.
+ * @param arr Iterable of numbers.
  * @returns Mean of the array. Return 0 if empty.
  */
-export function mean(arr: readonly number[]): number {
-  const n = arr.length;
-  if (n === 0) {
-    return 0;
+export function mean(arr: Iterable<number>): number {
+  let n = 0;
+  let cum = 0;
+  for (const x of arr) {
+    const co = 1 / ++n;
+    cum = (1 - co) * cum + co * x;
   }
-  return arr.reduce((l, r) => l + r) / n;
+  return cum;
 }
 
 /**
- * @param arr Array of numbers.
+ * @param arr Iterable of numbers.
  * @returns Unbiased sample variance of the array. Return 0 if length-0 or 1.
  */
-export function variance(arr: readonly number[]): number {
-  const n = arr.length;
+export function variance(arr: Iterable<number>): number {
+  let n = 0;
+  let cum1 = 0;
+  let cum2 = 0;
+  for (const x of arr) {
+    const co = 1 / ++n;
+    cum1 = (1 - co) * cum1 + co * x;
+    cum2 = (1 - co) * cum2 + co * x ** 2;
+  }
   if (n <= 1) {
     return 0;
   }
-  const m = mean(arr);
-  let cum = 0;
-  for (const x of arr) {
-    cum += (x - m) ** 2;
-  }
-  return cum / (n - 1);
+  return (cum2 - cum1 ** 2) * (1 + 1 / (n - 1));
 }
 
 /**
- * @param arr Array of numbers.
+ * @param arr Iterable of numbers.
  * @returns Square root of {@link variance}.
  */
-export function stddev(arr: readonly number[]): number {
+export function stddev(arr: Iterable<number>): number {
   return Math.sqrt(variance(arr));
 }

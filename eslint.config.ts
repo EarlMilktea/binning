@@ -29,7 +29,6 @@ export default defineConfig([
   prettier,
   {
     rules: {
-      "import/extensions": ["error", "always"],
       "import/no-relative-packages": "error",
       "import/no-relative-parent-imports": "error",
       "import/no-unresolved": "off",

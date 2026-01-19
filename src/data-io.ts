@@ -3,50 +3,59 @@
  * @description IO utilities for binning CLI.
  */
 
+import { Type, type Static } from "typebox";
+import Value from "typebox/value";
+
+const NumT = Type.Number({
+  exclusiveMinimum: -Infinity,
+  exclusiveMaximum: Infinity,
+});
+const NumVecT = Type.Array(NumT);
+const NumMatT = Type.Array(NumVecT);
+
+/**
+ * Try to parse a 1D numeric array.
+ * @param obj Object to validate.
+ * @returns Parsed array or null.
+ */
+function parse1DArray(obj: unknown): number[][] | null {
+  try {
+    const arr = Value.Parse(NumVecT, obj);
+    return arr.map((v) => [v]);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Try to parse a 2D numeric array.
+ * @param obj Object to validate.
+ * @returns Parsed array or null.
+ */
+function parse2DArray(obj: unknown): number[][] | null {
+  try {
+    return Value.Parse(NumMatT, obj);
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Validate and normalize numeric matrix.
  * @param obj Object to validate.
  * @returns Input data as a number matrix.
  */
-export function asMatrix(obj: unknown): number[][] {
-  if (!Array.isArray(obj)) {
-    const msg = "Not an array";
-    throw new TypeError(msg);
-  }
-  let arr: number[][];
-  if (obj.every(Array.isArray)) {
-    // Parse as 2D array
-    if (!obj.every((row) => row.every((val) => typeof val === "number"))) {
-      const msg = "Non-numeric values";
-      throw new TypeError(msg);
-    }
-    arr = obj;
-  } else {
-    // Parse as 1D array
-    if (!obj.every((val) => typeof val === "number")) {
-      const msg = "Non-numeric values";
-      throw new TypeError(msg);
-    }
-    arr = obj.map((val) => [val]);
+export function asMatrix(obj: unknown): Static<typeof NumMatT> {
+  const arr = parse2DArray(obj) ?? parse1DArray(obj);
+  if (arr === null) {
+    const msg = "Not an array of finite numbers";
+    throw new Error(msg);
   }
   const len = arr.at(0)?.length;
-  if (len === undefined) {
-    return arr;
-  }
   for (const row of arr) {
     if (row.length !== len) {
       const msg = "Jagged array";
       throw new Error(msg);
-    }
-    for (const val of row) {
-      if (Number.isNaN(val)) {
-        const msg = "Found NaN";
-        throw new Error(msg);
-      }
-      if (!Number.isFinite(val)) {
-        const msg = "Found Infinity";
-        throw new Error(msg);
-      }
     }
   }
   return arr;
@@ -117,12 +126,53 @@ export interface Op {
 }
 
 /**
+ * Extract a data row from a matrix.
+ * @param data Input matrix.
+ * @param index Row index.
+ * @returns Selected data row.
+ */
+function selectDataRow(
+  data: readonly (readonly number[])[],
+  index: number,
+): readonly number[] {
+  const row = data.at(index);
+  if (row === undefined) {
+    const msg = `Row index out of bounds: ${index}`;
+    throw new RangeError(msg);
+  }
+  return row;
+}
+
+/**
+ * Extract a data column from a matrix.
+ * @param data Input matrix.
+ * @param index Column index.
+ * @returns Selected data column.
+ */
+function selectDataCol(
+  data: readonly (readonly number[])[],
+  index: number,
+): readonly number[] {
+  return data.map((row) => {
+    const val = row.at(index);
+    if (val === undefined) {
+      const msg = `Column index out of bounds: ${index}`;
+      throw new RangeError(msg);
+    }
+    return val;
+  });
+}
+
+/**
  * Extract a data sequence from a matrix.
  * @param data Input matrix.
  * @param op How to select data.
  * @returns Selected data sequence.
  */
-export function selectData(data: readonly number[][], op?: Op): number[] {
+export function selectData(
+  data: readonly (readonly number[])[],
+  op?: Op,
+): readonly number[] {
   const rows = data.length;
   const cols = data.at(0)?.length;
   if (cols === undefined) {
@@ -131,26 +181,18 @@ export function selectData(data: readonly number[][], op?: Op): number[] {
   if (op === undefined) {
     if (rows === 1) {
       // 1D row vector
-      return data[0];
+      op = { target: "row", index: 0 };
     } else if (cols === 1) {
-      return data.map((row) => row[0]);
+      // 1D column vector
+      op = { target: "col", index: 0 };
+    } else {
+      const msg = "Cannot infer data sequence from matrix";
+      throw new Error(msg);
     }
-    const msg = "Cannot infer data sequence from matrix";
-    throw new Error(msg);
   }
-  let ret: number[];
   if (op.target === "row") {
-    if (op.index < 0 || op.index >= rows) {
-      const msg = `Row index out of bounds: ${op.index}`;
-      throw new RangeError(msg);
-    }
-    ret = data[op.index];
+    return selectDataRow(data, op.index);
   } else {
-    if (op.index < 0 || op.index >= cols) {
-      const msg = `Column index out of bounds: ${op.index}`;
-      throw new RangeError(msg);
-    }
-    ret = data.map((row) => row[op.index]);
+    return selectDataCol(data, op.index);
   }
-  return ret;
 }

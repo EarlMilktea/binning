@@ -1,7 +1,5 @@
 {
-  "extends": "@tsconfig/node18/tsconfig.json",
-  "include": ["src/**/*.ts"],
-  "exclude": ["src/**/*.test.ts"],
+  "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
     "declaration": true,
     "emitDeclarationOnly": true,
