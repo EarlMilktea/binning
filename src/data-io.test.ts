@@ -142,6 +142,7 @@ describe("selectData", () => {
     ];
     expect(selectData(mat, { target: "row", index: 0 })).toEqual([1, 2]);
     expect(selectData(mat, { target: "row", index: 1 })).toEqual([3, 4]);
+    expect(selectData(mat, { target: "row", index: -1 })).toEqual([3, 4]);
   });
 
   it("selects column from matrix", () => {
@@ -151,6 +152,7 @@ describe("selectData", () => {
     ];
     expect(selectData(mat, { target: "col", index: 0 })).toEqual([1, 3]);
     expect(selectData(mat, { target: "col", index: 1 })).toEqual([2, 4]);
+    expect(selectData(mat, { target: "col", index: -1 })).toEqual([2, 4]);
   });
 
   it("cannot infer data if not essentially 1D", () => {
@@ -180,7 +182,7 @@ describe("selectData", () => {
       [1, 2],
       [3, 4],
     ];
-    expect(() => selectData(mat, { target: "row", index: -1 })).toThrow(
+    expect(() => selectData(mat, { target: "row", index: 12 })).toThrow(
       "Row index",
     );
     expect(() => selectData(mat, { target: "col", index: 9 })).toThrow(

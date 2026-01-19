@@ -117,12 +117,53 @@ export interface Op {
 }
 
 /**
+ * Extract a data row from a matrix.
+ * @param data Input matrix.
+ * @param index Row index.
+ * @returns Selected data row.
+ */
+function selectDataRow(
+  data: readonly (readonly number[])[],
+  index: number,
+): readonly number[] {
+  const row = data.at(index);
+  if (row === undefined) {
+    const msg = `Row index out of bounds: ${index}`;
+    throw new RangeError(msg);
+  }
+  return row;
+}
+
+/**
+ * Extract a data column from a matrix.
+ * @param data Input matrix.
+ * @param index Column index.
+ * @returns Selected data column.
+ */
+function selectDataCol(
+  data: readonly (readonly number[])[],
+  index: number,
+): readonly number[] {
+  return data.map((row) => {
+    const val = row.at(index);
+    if (val === undefined) {
+      const msg = `Column index out of bounds: ${index}`;
+      throw new RangeError(msg);
+    }
+    return val;
+  });
+}
+
+/**
  * Extract a data sequence from a matrix.
  * @param data Input matrix.
  * @param op How to select data.
  * @returns Selected data sequence.
  */
-export function selectData(data: readonly number[][], op?: Op): number[] {
+export function selectData(
+  data: readonly (readonly number[])[],
+  op?: Op,
+): readonly number[] {
   const rows = data.length;
   const cols = data.at(0)?.length;
   if (cols === undefined) {
@@ -131,26 +172,18 @@ export function selectData(data: readonly number[][], op?: Op): number[] {
   if (op === undefined) {
     if (rows === 1) {
       // 1D row vector
-      return data[0];
+      op = { target: "row", index: 0 };
     } else if (cols === 1) {
-      return data.map((row) => row[0]);
+      // 1D column vector
+      op = { target: "col", index: 0 };
+    } else {
+      const msg = "Cannot infer data sequence from matrix";
+      throw new Error(msg);
     }
-    const msg = "Cannot infer data sequence from matrix";
-    throw new Error(msg);
   }
-  let ret: number[];
   if (op.target === "row") {
-    if (op.index < 0 || op.index >= rows) {
-      const msg = `Row index out of bounds: ${op.index}`;
-      throw new RangeError(msg);
-    }
-    ret = data[op.index];
+    return selectDataRow(data, op.index);
   } else {
-    if (op.index < 0 || op.index >= cols) {
-      const msg = `Column index out of bounds: ${op.index}`;
-      throw new RangeError(msg);
-    }
-    ret = data.map((row) => row[op.index]);
+    return selectDataCol(data, op.index);
   }
-  return ret;
 }
