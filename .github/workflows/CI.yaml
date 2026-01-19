@@ -15,8 +15,9 @@ jobs:
 
       - uses: actions/setup-node@v4
 
+      - uses: pnpm/action-setup@v4
+
       - run: |
-          corepack enable pnpm
           pnpm install
           pnpm lint
           pnpm test
