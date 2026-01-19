@@ -14,7 +14,7 @@
     "url": "git+https://github.com/EarlMilktea/binning.git"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "bin": {
     "binning": "./dist/src/bin.js"
@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
-    "@tsconfig/node18": "^18.2.6",
+    "@tsconfig/node20": "^20.1.8",
     "@types/argparse": "^2.0.17",
     "@types/node": "^25.0.9",
     "@vitest/coverage-v8": "^4.0.17",
