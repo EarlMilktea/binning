@@ -41,23 +41,6 @@ function parse2DArray(obj: unknown): number[][] | null {
 }
 
 /**
- * Check if a 2D array is jagged.
- * @param arr Input 2D array.
- */
-function checkJagged(arr: readonly (readonly number[])[]): void {
-  const len = arr.at(0)?.length;
-  if (len === undefined) {
-    return;
-  }
-  for (const row of arr) {
-    if (row.length !== len) {
-      const msg = "Jagged array";
-      throw new Error(msg);
-    }
-  }
-}
-
-/**
  * Validate and normalize numeric matrix.
  * @param obj Object to validate.
  * @returns Input data as a number matrix.
@@ -68,7 +51,13 @@ export function asMatrix(obj: unknown): Static<typeof NumMatT> {
     const msg = "Not an array of finite numbers";
     throw new Error(msg);
   }
-  checkJagged(arr);
+  const len = arr.at(0)?.length;
+  for (const row of arr) {
+    if (row.length !== len) {
+      const msg = "Jagged array";
+      throw new Error(msg);
+    }
+  }
   return arr;
 }
 
