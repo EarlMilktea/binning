@@ -49,12 +49,12 @@ export default class BinaryBinner {
       throw new Error(msg);
     }
     this.#binned = [];
+    this.#rawMean = mean(work);
+    this.#rawVar = variance(work);
     while (work.length > 0) {
       this.#binned.push(work);
       work = adjMean(work);
     }
-    this.#rawMean = mean(arr);
-    this.#rawVar = variance(arr);
   }
 
   #getLayer(layer: number): Float64Array<ArrayBuffer> {
