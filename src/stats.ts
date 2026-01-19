@@ -4,7 +4,7 @@
  */
 
 /**
- * @param arr Array of numbers.
+ * @param arr Iterable of numbers.
  * @returns Mean of the array. Return 0 if empty.
  */
 export function mean(arr: Iterable<number>): number {
@@ -18,7 +18,7 @@ export function mean(arr: Iterable<number>): number {
 }
 
 /**
- * @param arr Array of numbers.
+ * @param arr Iterable of numbers.
  * @returns Unbiased sample variance of the array. Return 0 if length-0 or 1.
  */
 export function variance(arr: Iterable<number>): number {
@@ -37,7 +37,7 @@ export function variance(arr: Iterable<number>): number {
 }
 
 /**
- * @param arr Array of numbers.
+ * @param arr Iterable of numbers.
  * @returns Square root of {@link variance}.
  */
 export function stddev(arr: Iterable<number>): number {
