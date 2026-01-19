@@ -24,7 +24,7 @@ function adjMean(arr: Float64Array): Float64Array<ArrayBuffer> {
 export default class BinaryBinner {
   #binned: Float64Array<ArrayBuffer>[];
   #rawMean: number;
-  #rawVar: number;
+  #varCache: Map<number, number>;
 
   /**
    * @param layer Target layer.
@@ -50,7 +50,7 @@ export default class BinaryBinner {
     }
     this.#binned = [];
     this.#rawMean = mean(work);
-    this.#rawVar = variance(work);
+    this.#varCache = new Map();
     while (work.length > 0) {
       this.#binned.push(work);
       work = adjMean(work);
@@ -107,11 +107,13 @@ export default class BinaryBinner {
    * @param layer Target layer. Defaults to 0.
    * @returns Raw variance of the target layer.
    */
-  rawVariance(layer?: number): number {
-    if (layer === undefined) {
-      return this.#rawVar;
+  rawVariance(layer = 0): number {
+    let val = this.#varCache.get(layer);
+    if (val === undefined) {
+      val = variance(this.#getLayer(layer));
+      this.#varCache.set(layer, val);
     }
-    return variance(this.#getLayer(layer));
+    return val;
   }
 
   /**
