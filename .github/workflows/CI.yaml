@@ -65,7 +65,7 @@ jobs:
     steps:
       - uses: denoland/setup-deno@v2
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v7
         with:
           name: packed-tgz
 
