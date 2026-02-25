@@ -57,13 +57,13 @@ export default class BinaryBinner {
     }
   }
 
-  #getLayer(layer: number): number[] {
+  #getLayer(layer: number): Float64Array<ArrayBuffer> {
     const ret = this.#binned.at(layer);
     if (ret === undefined) {
       const msg = `layer ${layer} out of bounds`;
       throw new RangeError(msg);
     }
-    return [...ret];
+    return ret;
   }
 
   /**
@@ -77,8 +77,8 @@ export default class BinaryBinner {
    * @param layer Target layer.
    * @returns Copy of the internal binned data.
    */
-  layer(layer: number): Float64Array<ArrayBuffer> {
-    return Float64Array.from(this.#getLayer(layer));
+  layer(layer: number): number[] {
+    return [...this.#getLayer(layer)];
   }
 
   /**
