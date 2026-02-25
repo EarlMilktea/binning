@@ -90,13 +90,13 @@ function parseTableText(input: string): unknown[] {
       throw new SyntaxError(msg);
     }
     if (!line.includes(",")) {
-      line = line.replace(/\s+/g, ",");
+      line = line.replaceAll(/\s+/g, ",");
     }
     try {
       ret.push(JSON.parse(`[${line}]`));
-    } catch (e) {
+    } catch (error) {
       const msg = "Failed to parse row";
-      throw new SyntaxError(msg, { cause: e });
+      throw new SyntaxError(msg, { cause: error });
     }
   }
   return ret;
@@ -110,12 +110,8 @@ function parseTableText(input: string): unknown[] {
 export function parseTable(input: string): unknown {
   try {
     return JSON.parse(input);
-  } catch (e) {
-    console.assert(e instanceof SyntaxError, "Unexpected error: %s", e);
-  }
-  if (input.includes("[") || input.includes("]")) {
-    const msg = "Failed to parse as JSON";
-    throw new SyntaxError(msg);
+  } catch (error) {
+    console.assert(error instanceof SyntaxError, "Unexpected error: %s", error);
   }
   return parseTableText(input);
 }
@@ -190,9 +186,7 @@ export function selectData(
       throw new Error(msg);
     }
   }
-  if (op.target === "row") {
-    return selectDataRow(data, op.index);
-  } else {
-    return selectDataCol(data, op.index);
-  }
+  return op.target === "row"
+    ? selectDataRow(data, op.index)
+    : selectDataCol(data, op.index);
 }

@@ -77,8 +77,8 @@ export default class BinaryBinner {
    * @param layer Target layer.
    * @returns Copy of the internal binned data.
    */
-  layer(layer: number): Float64Array<ArrayBuffer> {
-    return Float64Array.from(this.#getLayer(layer));
+  layer(layer: number): number[] {
+    return [...this.#getLayer(layer)];
   }
 
   /**
@@ -159,10 +159,10 @@ export default class BinaryBinner {
    */
   stat() {
     const cfg = { length: this.numLayers } as const;
-    const bins = Float64Array.from(cfg, (_, l) => BinaryBinner.binSize(l));
-    const samples = Float64Array.from(cfg, (_, l) => this.numBins(l));
-    const stds = Float64Array.from(cfg, (_, l) => this.corStdDev(l));
-    const ineffs = Float64Array.from(cfg, (_, l) => this.ineff(l));
+    const bins = Array.from(cfg, (_, l) => BinaryBinner.binSize(l));
+    const samples = Array.from(cfg, (_, l) => this.numBins(l));
+    const stds = Array.from(cfg, (_, l) => this.corStdDev(l));
+    const ineffs = Array.from(cfg, (_, l) => this.ineff(l));
     return {
       "total-mean": this.mean,
       "total-std-raw": this.rawStdDev(),

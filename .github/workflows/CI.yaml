@@ -20,7 +20,8 @@ jobs:
           version: 10
 
       - run: |
-          pnpm install
+          pnpm install --frozen-lockfile
+          pnpm format:check
           pnpm lint
           pnpm test
           pnpm build
@@ -64,7 +65,7 @@ jobs:
     steps:
       - uses: denoland/setup-deno@v2
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v7
         with:
           name: packed-tgz
 

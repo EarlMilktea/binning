@@ -41,7 +41,7 @@ describe("asMatrix", () => {
   });
 
   it("throws if Infinity or NaN", () => {
-    expect(() => asMatrix([1, NaN])).toThrow("Not an array");
+    expect(() => asMatrix([1, Number.NaN])).toThrow("Not an array");
     expect(() => asMatrix([1, Infinity])).toThrow("Not an array");
   });
 });
@@ -123,10 +123,6 @@ describe("parseTable", () => {
       [1, 2],
       [3, 4],
     ]);
-  });
-
-  it("does not proceed to table mode if JSON-like", () => {
-    expect(() => parseTable("[/]")).toThrow("Failed to parse as JSON");
   });
 
   it("works with mixed line endings", () => {

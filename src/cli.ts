@@ -6,15 +6,10 @@
 import { ArgumentParser } from "argparse";
 import fs from "node:fs";
 import { buffer } from "node:stream/consumers";
+import { Type } from "typebox";
+import { Value } from "typebox/value";
 import BinaryBinner from "./binner.js";
 import { asMatrix, parseTable, selectData, type Op } from "./data-io.js";
-
-interface Args {
-  row?: number;
-  col?: number;
-  input?: string;
-  output?: string;
-}
 
 interface Config {
   src?: string;
@@ -52,8 +47,13 @@ export function parseArgs(args?: string[]): Config {
     metavar: "DST",
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const cfg: Args = parser.parse_args(args);
+  const Args = Type.Object({
+    row: Type.Optional(Type.Integer()),
+    col: Type.Optional(Type.Integer()),
+    input: Type.Optional(Type.String()),
+    output: Type.Optional(Type.String()),
+  });
+  const cfg = Value.Parse(Args, parser.parse_args(args));
 
   const ret: Config = { src: cfg.input, dst: cfg.output };
   if (cfg.row !== undefined && cfg.col !== undefined) {
@@ -76,7 +76,8 @@ export function parseArgs(args?: string[]): Config {
  * @returns Promise that resolves to a string read from the stream.
  */
 async function readAll(input: NodeJS.ReadableStream): Promise<string> {
-  return (await buffer(input)).toString("utf-8");
+  const buf = await buffer(input);
+  return buf.toString("utf8");
 }
 
 /**
@@ -86,7 +87,7 @@ async function readAll(input: NodeJS.ReadableStream): Promise<string> {
 export async function app(cfg: Config): Promise<void> {
   const { src, dst, op } = cfg;
 
-  const stream = src !== undefined ? fs.createReadStream(src) : process.stdin;
+  const stream = src === undefined ? process.stdin : fs.createReadStream(src);
   const input = await readAll(stream);
   const arr = asMatrix(parseTable(input));
 

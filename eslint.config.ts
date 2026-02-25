@@ -1,9 +1,10 @@
 import js from "@eslint/js";
-import prettier from "eslint-config-prettier";
-import pluginImport from "eslint-plugin-import";
+import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
+import pluginImport from "eslint-plugin-import-x";
 import jsdoc from "eslint-plugin-jsdoc";
 import node from "eslint-plugin-n";
-import { defineConfig, globalIgnores } from "eslint/config";
+import pluginUnicorn from "eslint-plugin-unicorn";
+import { defineConfig } from "eslint/config";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -11,7 +12,9 @@ export default defineConfig([
   {
     files: ["**/*.ts"],
   },
-  globalIgnores(["**/*.test.ts", "./*.ts", "dist"]),
+  {
+    ignores: ["dist"],
+  },
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
@@ -22,18 +25,22 @@ export default defineConfig([
   ...tseslint.configs.strictTypeChecked,
   node.configs["flat/recommended"],
   pluginImport.flatConfigs.recommended,
+  pluginUnicorn.configs.recommended,
   {
     ignores: ["**/*.test.ts"],
     ...jsdoc.configs["flat/recommended-typescript-error"],
   },
-  prettier,
+  {
+    settings: {
+      "import-x/resolver-next": [createTypeScriptImportResolver()],
+    },
+  },
   {
     rules: {
-      "import/no-relative-packages": "error",
-      "import/no-relative-parent-imports": "error",
-      "import/no-unresolved": "off",
-      "n/no-missing-import": "off",
-      "n/no-unpublished-import": "off",
+      "unicorn/no-null": "off",
+      "unicorn/prevent-abbreviations": "off",
+      "import-x/no-relative-packages": "error",
+      "import-x/no-relative-parent-imports": "error",
       "@typescript-eslint/restrict-template-expressions": [
         "error",
         {
