@@ -76,7 +76,8 @@ export function parseArgs(args?: string[]): Config {
  * @returns Promise that resolves to a string read from the stream.
  */
 async function readAll(input: NodeJS.ReadableStream): Promise<string> {
-  return (await buffer(input)).toString("utf-8");
+  const buf = await buffer(input);
+  return buf.toString("utf8");
 }
 
 /**
@@ -86,7 +87,7 @@ async function readAll(input: NodeJS.ReadableStream): Promise<string> {
 export async function app(cfg: Config): Promise<void> {
   const { src, dst, op } = cfg;
 
-  const stream = src !== undefined ? fs.createReadStream(src) : process.stdin;
+  const stream = src === undefined ? process.stdin : fs.createReadStream(src);
   const input = await readAll(stream);
   const arr = asMatrix(parseTable(input));
 

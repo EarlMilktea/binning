@@ -41,7 +41,7 @@ describe("asMatrix", () => {
   });
 
   it("throws if Infinity or NaN", () => {
-    expect(() => asMatrix([1, NaN])).toThrow("Not an array");
+    expect(() => asMatrix([1, Number.NaN])).toThrow("Not an array");
     expect(() => asMatrix([1, Infinity])).toThrow("Not an array");
   });
 });

@@ -21,7 +21,7 @@ describe("BinaryBinner", () => {
   });
 
   it("works with length-one data", () => {
-    const v0 = 0.8426132851877524;
+    const v0 = 0.842_613_285_187_752_4;
     const obj = new BinaryBinner([v0]);
     expect(obj.numLayers).toBe(1);
     expect(obj.layer(0)[0]).toBeCloseTo(v0);
@@ -35,12 +35,12 @@ describe("BinaryBinner", () => {
     expect(obj.rawStdDev(0)).toBe(0);
     expect(obj.corVariance(0)).toBe(0);
     expect(obj.corStdDev(0)).toBe(0);
-    expect(obj.ineff(0)).toBe(NaN);
+    expect(obj.ineff(0)).toBe(Number.NaN);
   });
 
   it("works with length-two data", () => {
-    const v0 = 0.5415983152902303;
-    const v1 = -0.09859015451512258;
+    const v0 = 0.541_598_315_290_230_3;
+    const v1 = -0.098_590_154_515_122_58;
     const m = (v0 + v1) / 2;
     const mm = (v0 ** 2 + v1 ** 2) / 2;
     const obj = new BinaryBinner([v0, v1]);
@@ -68,8 +68,9 @@ describe("BinaryBinner", () => {
 
   it("is also fine otherwise", () => {
     const vs = [
-      1.0144754061862316, -0.3524689024770206, -0.11764670726425461,
-      -0.42722502116722094, 0.2671235820213575,
+      1.014_475_406_186_231_6, -0.352_468_902_477_020_6,
+      -0.117_646_707_264_254_61, -0.427_225_021_167_220_94,
+      0.267_123_582_021_357_5,
     ] as const;
     const [v0, v1, v2, v3, v4] = vs;
     const obj = new BinaryBinner(vs);

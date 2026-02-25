@@ -40,7 +40,7 @@ describe("app", () => {
         dst,
         op: { target: "row", index: 1 },
       });
-      output = await fs.readFile(dst, { encoding: "utf-8" });
+      output = await fs.readFile(dst, { encoding: "utf8" });
     } finally {
       await fs.rm(work, { recursive: true });
     }
