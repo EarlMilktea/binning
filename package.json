@@ -19,6 +19,9 @@
   "bin": {
     "binning": "./dist/src/bin.js"
   },
+  "sideEffects": [
+    "./dist/src/bin.js"
+  ],
   "exports": {
     ".": "./dist/src/index.js",
     "./binner.js": "./dist/src/binner.js",
