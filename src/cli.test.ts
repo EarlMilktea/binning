@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import Type from "typebox";
+import Value from "typebox/value";
 import { describe, expect, it } from "vitest";
 import { app, parseArgs } from "./cli.js";
 
@@ -44,7 +46,10 @@ describe("app", () => {
     } finally {
       await fs.rm(work, { recursive: true });
     }
-    const ret = JSON.parse(output) as { "total-mean": number };
+    const ret = Value.Parse(
+      Type.Object({ "total-mean": Type.Number() }),
+      JSON.parse(output),
+    );
     // HACK: Only check total-mean
     expect(ret["total-mean"]).toBeCloseTo(3.5);
   });

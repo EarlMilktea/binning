@@ -6,15 +6,10 @@
 import { ArgumentParser } from "argparse";
 import fs from "node:fs";
 import { buffer } from "node:stream/consumers";
+import Type from "typebox";
+import Value from "typebox/value";
 import BinaryBinner from "./binner.js";
 import { asMatrix, parseTable, selectData, type Op } from "./data-io.js";
-
-interface Args {
-  row?: number;
-  col?: number;
-  input?: string;
-  output?: string;
-}
 
 interface Config {
   src?: string;
@@ -52,8 +47,13 @@ export function parseArgs(args?: string[]): Config {
     metavar: "DST",
   });
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const cfg: Args = parser.parse_args(args);
+  const Args = Type.Object({
+    row: Type.Optional(Type.Integer()),
+    col: Type.Optional(Type.Integer()),
+    input: Type.Optional(Type.String()),
+    output: Type.Optional(Type.String()),
+  });
+  const cfg = Value.Parse(Args, parser.parse_args(args));
 
   const ret: Config = { src: cfg.input, dst: cfg.output };
   if (cfg.row !== undefined && cfg.col !== undefined) {
