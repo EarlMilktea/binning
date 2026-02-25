@@ -32,28 +32,28 @@
   "types": "./dist/src/index.d.ts",
   "dependencies": {
     "argparse": "^2.0.1",
-    "typebox": "^1.0.78"
+    "typebox": "^1.1.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.39.2",
-    "@tsconfig/node20": "^20.1.8",
+    "@eslint/js": "^9.39.3",
+    "@tsconfig/node20": "^20.1.9",
     "@types/argparse": "^2.0.17",
-    "@types/node": "^25.0.9",
-    "@vitest/coverage-v8": "^4.0.17",
-    "esbuild": "^0.27.2",
-    "eslint": "^9.39.2",
+    "@types/node": "^25.3.0",
+    "@vitest/coverage-v8": "^4.0.18",
+    "esbuild": "^0.27.3",
+    "eslint": "^9.39.3",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-jsdoc": "^62.1.0",
-    "eslint-plugin-n": "^17.23.2",
-    "globals": "^17.0.0",
+    "eslint-plugin-jsdoc": "^62.7.1",
+    "eslint-plugin-n": "^17.24.0",
+    "globals": "^17.3.0",
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
-    "prettier": "^3.8.0",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3",
-    "typescript-eslint": "^8.53.0",
+    "typescript-eslint": "^8.56.1",
     "vite": "^7.3.1",
-    "vitest": "^4.0.17"
+    "vitest": "^4.0.18"
   },
   "scripts": {
     "build": "run-p build:*",
