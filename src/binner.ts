@@ -57,13 +57,13 @@ export default class BinaryBinner {
     }
   }
 
-  #getLayer(layer: number): Float64Array<ArrayBuffer> {
+  #getLayer(layer: number): number[] {
     const ret = this.#binned.at(layer);
     if (ret === undefined) {
       const msg = `layer ${layer} out of bounds`;
       throw new RangeError(msg);
     }
-    return ret;
+    return [...ret];
   }
 
   /**
@@ -159,10 +159,10 @@ export default class BinaryBinner {
    */
   stat() {
     const cfg = { length: this.numLayers } as const;
-    const bins = Float64Array.from(cfg, (_, l) => BinaryBinner.binSize(l));
-    const samples = Float64Array.from(cfg, (_, l) => this.numBins(l));
-    const stds = Float64Array.from(cfg, (_, l) => this.corStdDev(l));
-    const ineffs = Float64Array.from(cfg, (_, l) => this.ineff(l));
+    const bins = Array.from(cfg, (_, l) => BinaryBinner.binSize(l));
+    const samples = Array.from(cfg, (_, l) => this.numBins(l));
+    const stds = Array.from(cfg, (_, l) => this.corStdDev(l));
+    const ineffs = Array.from(cfg, (_, l) => this.ineff(l));
     return {
       "total-mean": this.mean,
       "total-std-raw": this.rawStdDev(),

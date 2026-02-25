@@ -44,8 +44,8 @@ describe("app", () => {
     } finally {
       await fs.rm(work, { recursive: true });
     }
-    // HACK: Only check total-mean
     const ret = JSON.parse(output) as { "total-mean": number };
+    // HACK: Only check total-mean
     expect(ret["total-mean"]).toBeCloseTo(3.5);
   });
 });
