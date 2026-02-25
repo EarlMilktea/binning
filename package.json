@@ -60,10 +60,9 @@
     "build": "run-p build:*",
     "build:esbuild": "jiti bundle.ts",
     "build:tsc": "tsc",
-    "lint": "run-p lint:*",
-    "lint:check": "eslint",
-    "lint:format": "prettier --check .",
-    "lint:format:write": "prettier --write .",
+    "lint": "eslint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepack": "run-s build",
     "test": "vitest run"
   }
