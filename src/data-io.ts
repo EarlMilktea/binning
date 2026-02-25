@@ -113,10 +113,6 @@ export function parseTable(input: string): unknown {
   } catch (error) {
     console.assert(error instanceof SyntaxError, "Unexpected error: %s", error);
   }
-  if (input.includes("[") || input.includes("]")) {
-    const msg = "Failed to parse as JSON";
-    throw new SyntaxError(msg);
-  }
   return parseTableText(input);
 }
 
