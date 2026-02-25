@@ -6,8 +6,8 @@
 import { ArgumentParser } from "argparse";
 import fs from "node:fs";
 import { buffer } from "node:stream/consumers";
-import Type from "typebox";
-import Value from "typebox/value";
+import { Type } from "typebox";
+import { Value } from "typebox/value";
 import BinaryBinner from "./binner.js";
 import { asMatrix, parseTable, selectData, type Op } from "./data-io.js";
 

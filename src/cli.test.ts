@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import Type from "typebox";
-import Value from "typebox/value";
+import { Type } from "typebox";
+import { Value } from "typebox/value";
 import { describe, expect, it } from "vitest";
 import { app, parseArgs } from "./cli.js";
 
