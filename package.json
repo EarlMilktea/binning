@@ -32,13 +32,13 @@
   "types": "./dist/src/index.d.ts",
   "dependencies": {
     "argparse": "^2.0.1",
-    "typebox": "^1.1.1"
+    "typebox": "^1.1.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.3",
     "@tsconfig/node20": "^20.1.9",
     "@types/argparse": "^2.0.17",
-    "@types/node": "^25.3.0",
+    "@types/node": "^25.3.3",
     "@vitest/coverage-v8": "^4.0.18",
     "eslint": "^9.39.3",
     "eslint-import-resolver-typescript": "^4.4.4",
@@ -46,7 +46,7 @@
     "eslint-plugin-jsdoc": "^62.7.1",
     "eslint-plugin-n": "^17.24.0",
     "eslint-plugin-unicorn": "^63.0.0",
-    "globals": "^17.3.0",
+    "globals": "^17.4.0",
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.8.1",
