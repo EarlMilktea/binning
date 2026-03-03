@@ -36,10 +36,7 @@ export default defineConfig([
   // @ts-expect-error - broken types
   importX.flatConfigs.typescript,
   unicorn.configs.recommended,
-  {
-    ignores: ["**/*.test.ts"],
-    ...jsDoc.configs["flat/recommended-typescript-error"],
-  },
+  jsDoc.configs["flat/recommended-typescript-error"],
   {
     plugins: {
       "simple-import-sort": simpleImportSort,
