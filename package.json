@@ -57,9 +57,10 @@
   },
   "scripts": {
     "build": "tsc",
-    "lint": "eslint --cache --cache-strategy content",
+    "build:check": "tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "lint": "eslint --cache --cache-strategy content",
     "prepack": "run-s build",
     "test": "vitest run"
   }
