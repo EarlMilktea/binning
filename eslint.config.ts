@@ -1,10 +1,12 @@
 import js from "@eslint/js";
+import { defineConfig } from "eslint/config";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
-import pluginImport from "eslint-plugin-import-x";
+import { importX } from "eslint-plugin-import-x";
+// eslint-disable-next-line import-x/no-named-as-default
 import jsdoc from "eslint-plugin-jsdoc";
 import node from "eslint-plugin-n";
-import pluginUnicorn from "eslint-plugin-unicorn";
-import { defineConfig } from "eslint/config";
+import simpleImportSort from "eslint-plugin-simple-import-sort";
+import unicorn from "eslint-plugin-unicorn";
 import globals from "globals";
 import tseslint from "typescript-eslint";
 
@@ -18,17 +20,31 @@ export default defineConfig([
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.node },
-      parserOptions: { project: "./tsconfig.json" },
+      parserOptions: {
+        project: "./tsconfig.json",
+        tsConfigRootDir: __dirname,
+      },
     },
   },
   js.configs.recommended,
+  // eslint-disable-next-line import-x/no-named-as-default-member
   ...tseslint.configs.strictTypeChecked,
   node.configs["flat/recommended"],
-  pluginImport.flatConfigs.recommended,
-  pluginUnicorn.configs.recommended,
+  importX.flatConfigs.recommended,
+  importX.flatConfigs.typescript,
+  unicorn.configs.recommended,
   {
     ignores: ["**/*.test.ts"],
     ...jsdoc.configs["flat/recommended-typescript-error"],
+  },
+  {
+    plugins: {
+      "simple-import-sort": simpleImportSort,
+    },
+    rules: {
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
+    },
   },
   {
     settings: {

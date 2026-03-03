@@ -1,4 +1,5 @@
 import { assert, describe, expect, it } from "vitest";
+
 import BinaryBinner from "./binner.js";
 
 describe("BinaryBinner.binSize", () => {
