@@ -57,8 +57,8 @@
     "vitest": "^4.0.18"
   },
   "scripts": {
-    "build": "tsc",
-    "build:check": "tsc --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "build:check": "tsc -p tsconfig.json",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint --cache --cache-strategy content",

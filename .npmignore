@@ -2,13 +2,10 @@
 .github
 .prettierignore
 .prettierrc
-dist/src/*.test.d.ts
-dist/src/*.test.js
-dist/*.d.ts
-dist/*.js
 node_modules
 pnpm-lock.yaml
-src/
+tsconfig.build.json
 tsconfig.json
-*.config.ts
 *.tgz
+*.ts
+!*.d.ts
