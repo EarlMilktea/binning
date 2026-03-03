@@ -1,9 +1,10 @@
+import path from "node:path";
+
 import js from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
 import { importX } from "eslint-plugin-import-x";
-// eslint-disable-next-line import-x/no-named-as-default
-import jsdoc from "eslint-plugin-jsdoc";
+import jsDoc from "eslint-plugin-jsdoc";
 import node from "eslint-plugin-n";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import unicorn from "eslint-plugin-unicorn";
@@ -22,7 +23,7 @@ export default defineConfig([
       globals: { ...globals.browser, ...globals.node },
       parserOptions: {
         project: "./tsconfig.json",
-        tsConfigRootDir: __dirname,
+        tsConfigRootDir: path.dirname(import.meta.url),
       },
     },
   },
@@ -37,7 +38,7 @@ export default defineConfig([
   unicorn.configs.recommended,
   {
     ignores: ["**/*.test.ts"],
-    ...jsdoc.configs["flat/recommended-typescript-error"],
+    ...jsDoc.configs["flat/recommended-typescript-error"],
   },
   {
     plugins: {
