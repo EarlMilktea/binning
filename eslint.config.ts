@@ -1,5 +1,3 @@
-import path from "node:path";
-
 import js from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
@@ -22,8 +20,7 @@ export default defineConfig([
     languageOptions: {
       globals: { ...globals.node },
       parserOptions: {
-        project: "./tsconfig.json",
-        tsConfigRootDir: path.dirname(import.meta.url),
+        projectService: true,
       },
     },
   },
