@@ -60,7 +60,7 @@
     "build": "run-p build:*",
     "build:esbuild": "jiti bundle.ts",
     "build:tsc": "tsc",
-    "lint": "eslint",
+    "lint": "eslint --cache --cache-strategy content",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepack": "run-s build",
