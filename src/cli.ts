@@ -4,6 +4,7 @@
  */
 
 import fs from "node:fs";
+import process from "node:process";
 import { buffer } from "node:stream/consumers";
 
 import { ArgumentParser } from "argparse";
