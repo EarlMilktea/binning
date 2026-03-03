@@ -1,13 +1,13 @@
 .github
 .prettierignore
 .prettierrc
-bundle.ts
 node_modules
 pnpm-lock.yaml
-pnpm-workspace.yaml
 src/
 tsconfig.json
 *.config.ts
 *.tgz
+dist/*.js
 dist/*.d.ts
+dist/src/*.test.js
 dist/src/*.test.d.ts

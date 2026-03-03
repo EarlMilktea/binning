@@ -47,6 +47,12 @@ export default defineConfig([
           allowNumber: true,
         },
       ],
+      "n/hashbang": [
+        "error",
+        {
+          additionalExecutables: ["src/bin.ts"],
+        },
+      ],
     },
   },
 ]);
