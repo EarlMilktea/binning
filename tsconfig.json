@@ -1,11 +1,8 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
-    "declaration": true,
-    "emitDeclarationOnly": true,
     "isolatedModules": true,
-    "outDir": "dist",
-    "rootDir": ".",
-    "verbatimModuleSyntax": true
+    "noEmit": true,
+    "rootDir": "."
   }
 }

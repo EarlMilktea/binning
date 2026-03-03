@@ -1,13 +1,11 @@
+.eslintcache
 .github
 .prettierignore
 .prettierrc
-bundle.ts
 node_modules
 pnpm-lock.yaml
-pnpm-workspace.yaml
-src/
+tsconfig.build.json
 tsconfig.json
-*.config.ts
 *.tgz
-dist/*.d.ts
-dist/src/*.test.d.ts
+*.ts
+!*.d.ts

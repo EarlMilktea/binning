@@ -3,8 +3,8 @@
  * @description IO utilities for binning CLI.
  */
 
-import { Type, type Static } from "typebox";
-import Value from "typebox/value";
+import { type Static, Type } from "typebox";
+import { Value } from "typebox/value";
 
 const NumT = Type.Number({
   exclusiveMinimum: -Infinity,

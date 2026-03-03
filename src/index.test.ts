@@ -1,4 +1,5 @@
 import { describe, it } from "vitest";
+
 import BinaryBinner from "./index.js";
 
 describe("package entry point", () => {

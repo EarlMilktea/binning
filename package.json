@@ -1,7 +1,7 @@
 {
   "name": "binning",
   "type": "module",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "license": "MIT",
   "description": "Correlated data analyzer written in TypeScript",
   "keywords": [
@@ -32,22 +32,22 @@
   "types": "./dist/src/index.d.ts",
   "dependencies": {
     "argparse": "^2.0.1",
-    "typebox": "^1.1.1"
+    "typebox": "^1.1.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.3",
     "@tsconfig/node20": "^20.1.9",
     "@types/argparse": "^2.0.17",
-    "@types/node": "^25.3.0",
+    "@types/node": "^25.3.3",
     "@vitest/coverage-v8": "^4.0.18",
-    "esbuild": "^0.27.3",
     "eslint": "^9.39.3",
     "eslint-import-resolver-typescript": "^4.4.4",
     "eslint-plugin-import-x": "^4.16.1",
     "eslint-plugin-jsdoc": "^62.7.1",
     "eslint-plugin-n": "^17.24.0",
+    "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unicorn": "^63.0.0",
-    "globals": "^17.3.0",
+    "globals": "^17.4.0",
     "jiti": "^2.6.1",
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.8.1",
@@ -57,12 +57,11 @@
     "vitest": "^4.0.18"
   },
   "scripts": {
-    "build": "run-p build:*",
-    "build:esbuild": "jiti bundle.ts",
-    "build:tsc": "tsc",
-    "lint": "eslint",
+    "build": "tsc -p tsconfig.build.json",
+    "build:check": "tsc -p tsconfig.json",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "lint": "eslint --cache --cache-strategy content",
     "prepack": "run-s build",
     "test": "vitest run"
   }

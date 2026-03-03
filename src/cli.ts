@@ -3,13 +3,15 @@
  * @description CLI entry point.
  */
 
-import { ArgumentParser } from "argparse";
 import fs from "node:fs";
 import { buffer } from "node:stream/consumers";
+
+import { ArgumentParser } from "argparse";
 import { Type } from "typebox";
 import { Value } from "typebox/value";
+
 import BinaryBinner from "./binner.js";
-import { asMatrix, parseTable, selectData, type Op } from "./data-io.js";
+import { asMatrix, type Op, parseTable, selectData } from "./data-io.js";
 
 interface Config {
   src?: string;
