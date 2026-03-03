@@ -20,7 +20,7 @@ export default defineConfig([
   },
   {
     languageOptions: {
-      globals: { ...globals.browser, ...globals.node },
+      globals: { ...globals.node },
       parserOptions: {
         project: "./tsconfig.json",
         tsConfigRootDir: path.dirname(import.meta.url),
