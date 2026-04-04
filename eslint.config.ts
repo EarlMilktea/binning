@@ -28,9 +28,7 @@ export default defineConfig([
   // eslint-disable-next-line import-x/no-named-as-default-member
   tseslint.configs.strictTypeChecked,
   node.configs["flat/recommended"],
-  // @ts-expect-error - broken types
   importX.flatConfigs.recommended,
-  // @ts-expect-error - broken types
   importX.flatConfigs.typescript,
   unicorn.configs.recommended,
   jsDoc.configs["flat/recommended-typescript-error"],
