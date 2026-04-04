@@ -2,8 +2,7 @@ import js from "@eslint/js";
 import { defineConfig } from "eslint/config";
 import { createTypeScriptImportResolver } from "eslint-import-resolver-typescript";
 import { importX } from "eslint-plugin-import-x";
-// eslint-disable-next-line import-x/no-named-as-default
-import jsdoc from "eslint-plugin-jsdoc";
+import jsDoc from "eslint-plugin-jsdoc";
 import node from "eslint-plugin-n";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import unicorn from "eslint-plugin-unicorn";
@@ -19,24 +18,22 @@ export default defineConfig([
   },
   {
     languageOptions: {
-      globals: { ...globals.browser, ...globals.node },
+      globals: { ...globals.node },
       parserOptions: {
-        project: "./tsconfig.json",
-        tsConfigRootDir: __dirname,
+        projectService: true,
       },
     },
   },
   js.configs.recommended,
   // eslint-disable-next-line import-x/no-named-as-default-member
-  ...tseslint.configs.strictTypeChecked,
+  tseslint.configs.strictTypeChecked,
   node.configs["flat/recommended"],
+  // @ts-expect-error - broken types
   importX.flatConfigs.recommended,
+  // @ts-expect-error - broken types
   importX.flatConfigs.typescript,
   unicorn.configs.recommended,
-  {
-    ignores: ["**/*.test.ts"],
-    ...jsdoc.configs["flat/recommended-typescript-error"],
-  },
+  jsDoc.configs["flat/recommended-typescript-error"],
   {
     plugins: {
       "simple-import-sort": simpleImportSort,
