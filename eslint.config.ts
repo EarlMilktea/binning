@@ -52,6 +52,7 @@ export default defineConfig([
       "unicorn/prevent-abbreviations": "off",
       "import-x/no-relative-packages": "error",
       "import-x/no-relative-parent-imports": "error",
+      "@typescript-eslint/consistent-type-imports": "error",
       "@typescript-eslint/restrict-template-expressions": [
         "error",
         {
