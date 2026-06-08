@@ -4,7 +4,7 @@
  */
 
 import { type Static, Type } from "typebox";
-import { Value } from "typebox/value";
+import Schema from "typebox/schema";
 
 const NumT = Type.Number({
   exclusiveMinimum: -Infinity,
@@ -13,6 +13,9 @@ const NumT = Type.Number({
 const NumVecT = Type.Array(NumT);
 const NumMatT = Type.Array(NumVecT);
 
+const NumVec = Schema.Compile(NumVecT);
+const NumMat = Schema.Compile(NumMatT);
+
 /**
  * Try to parse a 1D numeric array.
  * @param obj Object to validate.
@@ -20,7 +23,7 @@ const NumMatT = Type.Array(NumVecT);
  */
 function parse1DArray(obj: unknown): number[][] | null {
   try {
-    const arr = Value.Parse(NumVecT, obj);
+    const arr = NumVec.Parse(obj);
     return arr.map((v) => [v]);
   } catch {
     return null;
@@ -34,7 +37,7 @@ function parse1DArray(obj: unknown): number[][] | null {
  */
 function parse2DArray(obj: unknown): number[][] | null {
   try {
-    return Value.Parse(NumMatT, obj);
+    return NumMat.Parse(obj);
   } catch {
     return null;
   }
