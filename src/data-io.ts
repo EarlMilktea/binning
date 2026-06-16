@@ -189,7 +189,5 @@ export function selectData(
       throw new Error(msg);
     }
   }
-  return op.target === "row"
-    ? selectDataRow(data, op.index)
-    : selectDataCol(data, op.index);
+  return (op.target === "row" ? selectDataRow : selectDataCol)(data, op.index);
 }
