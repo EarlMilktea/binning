@@ -58,11 +58,11 @@ export function parseArgs(args?: string[]): Config {
   });
   const cfg = Value.Parse(Args, parser.parse_args(args));
 
-  const ret: Config = { src: cfg.input, dst: cfg.output };
   if (cfg.row !== undefined && cfg.col !== undefined) {
     const msg = "--row and --col cannot be specified at the same time";
     throw new Error(msg);
   }
+  const ret: Config = { src: cfg.input, dst: cfg.output };
   if (cfg.row !== undefined) {
     ret.op = { target: "row", index: cfg.row };
   }

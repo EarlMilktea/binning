@@ -27,18 +27,6 @@ export default class BinaryBinner {
   #varCache: Map<number, number>;
 
   /**
-   * @param layer Target layer.
-   * @returns Size of the bin for the given layer.
-   */
-  static binSize(layer: number): number {
-    if (layer < 0) {
-      const msg = "layer must be non-negative";
-      throw new RangeError(msg);
-    }
-    return 2 ** layer;
-  }
-
-  /**
    * Create a new {@link BinaryBinner} from a time series of samples.
    * @param arr Sequence of samples.
    */
@@ -55,6 +43,18 @@ export default class BinaryBinner {
       this.#binned.push(work);
       work = adjMean(work);
     }
+  }
+
+  /**
+   * @param layer Target layer.
+   * @returns Size of the bin for the given layer.
+   */
+  static binSize(layer: number): number {
+    if (layer < 0) {
+      const msg = "layer must be non-negative";
+      throw new RangeError(msg);
+    }
+    return 2 ** layer;
   }
 
   #getLayer(layer: number): Float64Array<ArrayBuffer> {
