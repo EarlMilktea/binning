@@ -22,6 +22,18 @@ function adjMean(arr: Float64Array): Float64Array<ArrayBuffer> {
  * Binary binner used for estimating standard errors from correlated samples.
  */
 export default class BinaryBinner {
+  /**
+   * @param layer Target layer.
+   * @returns Size of the bin for the given layer.
+   */
+  static binSize(layer: number): number {
+    if (layer < 0) {
+      const msg = "layer must be non-negative";
+      throw new RangeError(msg);
+    }
+    return 2 ** layer;
+  }
+
   #binned: Float64Array<ArrayBuffer>[];
   #rawMean: number;
   #varCache: Map<number, number>;
@@ -43,18 +55,6 @@ export default class BinaryBinner {
       this.#binned.push(work);
       work = adjMean(work);
     }
-  }
-
-  /**
-   * @param layer Target layer.
-   * @returns Size of the bin for the given layer.
-   */
-  static binSize(layer: number): number {
-    if (layer < 0) {
-      const msg = "layer must be non-negative";
-      throw new RangeError(msg);
-    }
-    return 2 ** layer;
   }
 
   #getLayer(layer: number): Float64Array<ArrayBuffer> {
