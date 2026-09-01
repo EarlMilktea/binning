@@ -14,7 +14,7 @@
     "url": "git+https://github.com/EarlMilktea/binning.git"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "bin": {
     "binning": "dist/src/bin.js"
@@ -31,30 +31,30 @@
   },
   "types": "./dist/src/index.d.ts",
   "dependencies": {
-    "argparse": "^2.0.1",
-    "typebox": "^1.3.3"
+    "argparse": "^3.0.1",
+    "typebox": "^1.3.23"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@tsconfig/node20": "^20.1.9",
+    "@tsconfig/node22": "^22.0.0",
     "@types/argparse": "^2.0.17",
-    "@types/node": "^26.1.0",
-    "@vitest/coverage-v8": "^4.1.8",
-    "eslint": "^10.5.0",
+    "@types/node": "^26.4.0",
+    "@vitest/coverage-v8": "^4.1.11",
+    "eslint": "^10.9.1",
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import-x": "^4.17.1",
-    "eslint-plugin-jsdoc": "^63.0.11",
-    "eslint-plugin-n": "^18.2.1",
-    "eslint-plugin-simple-import-sort": "^13.0.0",
-    "eslint-plugin-unicorn": "^70.0.0",
-    "globals": "^17.7.0",
+    "eslint-plugin-jsdoc": "^64.3.2",
+    "eslint-plugin-n": "^18.3.0",
+    "eslint-plugin-simple-import-sort": "^14.0.0",
+    "eslint-plugin-unicorn": "^74.0.0",
+    "globals": "^17.11.0",
     "jiti": "^2.7.0",
-    "npm-run-all2": "^9.0.1",
-    "prettier": "^3.9.4",
+    "npm-run-all2": "^9.0.3",
+    "prettier": "^3.9.6",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.62.1",
-    "vite": "^8.1.3",
-    "vitest": "^4.1.8"
+    "typescript-eslint": "^8.68.0",
+    "vite": "^8.2.2",
+    "vitest": "^4.1.11"
   },
   "scripts": {
     "build": "tsc -p tsconfig.build.json",

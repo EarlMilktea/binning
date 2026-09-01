@@ -31,6 +31,7 @@ export default defineConfig([
   importX.flatConfigs.recommended,
   importX.flatConfigs.typescript,
   unicorn.configs.recommended,
+  // eslint-disable-next-line import-x/no-named-as-default-member
   jsDoc.configs["flat/recommended-typescript-error"],
   {
     plugins: {
