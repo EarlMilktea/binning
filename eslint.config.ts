@@ -50,6 +50,7 @@ export default defineConfig([
   {
     rules: {
       "unicorn/name-replacements": "off",
+      "unicorn/no-asterisk-prefix-in-documentation-comments": "off",
       "unicorn/no-null": "off",
       "unicorn/prevent-abbreviations": "off",
       "import-x/no-relative-packages": "error",

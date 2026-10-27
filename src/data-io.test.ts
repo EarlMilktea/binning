@@ -4,9 +4,7 @@ import { asMatrix, parseTable, selectData } from "./data-io.js";
 
 describe("asMatrix", () => {
   it("returns matrix as-is", () => {
-    let mat: number[][];
-
-    mat = [
+    let mat = [
       [1, 2],
       [3, 4],
     ];

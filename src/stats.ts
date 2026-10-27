@@ -30,10 +30,7 @@ export function variance(arr: Iterable<number>): number {
     cum1 = (1 - co) * cum1 + co * x;
     cum2 = (1 - co) * cum2 + co * x ** 2;
   }
-  if (n <= 1) {
-    return 0;
-  }
-  return (cum2 - cum1 ** 2) * (1 + 1 / (n - 1));
+  return n <= 1 ? 0 : (cum2 - cum1 ** 2) * (1 + 1 / (n - 1));
 }
 
 /**
